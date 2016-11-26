@@ -1,4 +1,4 @@
-﻿
+﻿@using System.Web.Optimization
 @model SAP.Addon.Domain.Models.LoginViewModel
 @{ 
     Layout = null;
@@ -12,14 +12,12 @@
     <title>@ViewBag.Title | SAP Intergration</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+
+    @Styles.Render("~/Bundles/css")
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/Content/css/AdminLTE.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="~/Content/css/icheck/blue.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,14 +36,20 @@
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
             <form action="@Url.Action("Login","Account")" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="UserId">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "UserId" })
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password">
+                    @Html.PasswordFor(m=>m.Password, new {@class= "form-control", placeholder= "Password" })
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
+                <div class="form-group has-feedback">
+                    @Html.DropDownListFor(m=>m.Functional, (SelectList)ViewBag.FunctionList, new { @class = "form-control" })
+                </div>
+                
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
@@ -65,11 +69,10 @@
         <!-- /.login-box-body -->
     </div>
     <!-- /.login-box -->
-    <!-- jQuery 2.2.3 -->
-    <script src="~/Content/js/plugins/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="~/Content/js/plugins/bootstrap/bootstrap.min.js"></script>
     <!-- iCheck -->
+    
+    @Scripts.Render("~/Bundles/js")
+
     <script src="~/Content/js/plugins/icheck/icheck.min.js"></script>
     <script>
   $(function () {

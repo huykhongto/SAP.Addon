@@ -16,10 +16,16 @@ namespace SAP.Addon.Controllers
     {
         private ZUSRService service;
 
+        public AccountController(ZUSRService us)
+        {
+            this.service = us;
+        }
+
         // GET: Account
         [AllowAnonymous]
         public ActionResult Login()
         {
+            //ViewBag.FunctionList = 
             return View();
         }
 
@@ -58,7 +64,7 @@ namespace SAP.Addon.Controllers
                         return Redirect(returnUrl);
                 }
             }
-            ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
+            ModelState.AddModelError("", "UserId or Password is incorrect.");
             return View(model);
         }
 

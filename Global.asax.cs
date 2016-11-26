@@ -17,13 +17,16 @@ namespace SAP.Addon
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Bootstrapper.Run();
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new WebCoreAuthorizeAttribute());
+            
         }
+
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
