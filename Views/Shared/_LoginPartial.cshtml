@@ -1,15 +1,13 @@
-﻿
-<ul class="dropdown-menu">
-    <li class="dropdown user user-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="~/Content/img/user.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs">@User.Identity.Name</span>
-        </a>
-        @if (Request.IsAuthenticated)
-        {
-<li class="user-header">
+﻿<li class="dropdown user user-menu">
+    @if(User.Identity.IsAuthenticated)
+    {
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <img src="~/Content/img/user.jpg" class="user-image" alt="User Image">
+        <span class="hidden-xs">@User.Identity.Name</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="user-header">
             <img src="~/Content/img/user.jpg" class="img-circle" alt="User Image">
-
             <p>
                 @User.Identity.Name
                 <small>Member since Nov. 2012</small>
@@ -30,20 +28,20 @@
         </li>
         <li class="user-footer">
             <div class="pull-left">
-                <a class="btn btn-default btn-flat" href="@Url.Action("Details", "User", new { id = User.Id, Area = "Administration" })">Thông tin tài khoản</a>
+                <a class="btn btn-default btn-flat" href="@Url.Action("Details", "User", new { id = User.Id, Area = "Administration" })">Profile</a>
             </div>
             <div class="pull-right">
-                <a class="btn btn-default btn-flat" href="@Url.Action("LogOff", "Account", new {Area = "" })">Đăng xuất</a>
+                <a class="btn btn-default btn-flat" href="@Url.Action("LogOff", "Account", new {Area = "" })">Logoff</a>
             </div>
         </li>
-        }
-        else
-        {
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="~/Content/img/userxxx.jpg" class="user-image" alt="User Image">
-                <span class="hidden-xs">Anomymous User</span>
-            </a>
-        }
-    </li>
-</ul>
- 
+
+    </ul>
+    }
+    else
+    {
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <img src="~/Content/img/user.jpg" class="user-image" alt="User Image">
+        <span class="hidden-xs">Anonymous User</span>
+    </a>
+    }
+ </li>

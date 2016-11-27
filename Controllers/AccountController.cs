@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using SAP.Addon.Domain.Entities.Administration;
 using SAP.Addon.Domain.Models;
 using SAP.Addon.Domain.Models.Administration;
+using SAP.Addon.Domain.Repositories.Administration;
 using SAP.Addon.Domain.Services.Administration;
 using Security;
 using System;
@@ -15,17 +17,19 @@ namespace SAP.Addon.Controllers
     public class AccountController : BaseController
     {
         private ZUSRService service;
+        private ITerminologyService terminologyService;
 
-        public AccountController(ZUSRService us)
+        public AccountController(ZUSRService us, ITerminologyService terminologyService)
         {
             this.service = us;
+            this.terminologyService = terminologyService;
         }
 
         // GET: Account
         [AllowAnonymous]
         public ActionResult Login()
         {
-            //ViewBag.FunctionList = 
+            ViewBag.FunctionList = new SelectList(terminologyService.GetItemByCode(Terminology.FUNCTIONS), "Code","Name");
             return View();
         }
 

@@ -15,18 +15,18 @@
         @* BEGIN Menu *@
         <ul class="sidebar-menu">
             <li class="header">HEADER</li>
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-            <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+            <li class="active"><a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+            <li><a href="@Url.Action("Index", "BlanketAgreement", new {Area="Business" })"><i class="fa fa-link"></i> <span>Blanket Agreement</span></a></li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-link"></i> <span>Multilevel</span>
+                    <i class="fa fa-link"></i> <span>System</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
+                    <li><a href="#">System Categories</a></li>
+                    <li><a href="#">Users</a></li>
                 </ul>
             </li>
         </ul>
