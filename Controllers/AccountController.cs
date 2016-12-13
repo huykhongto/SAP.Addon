@@ -68,6 +68,7 @@ namespace SAP.Addon.Controllers
                         return Redirect(returnUrl);
                 }
             }
+            ViewBag.FunctionList = new SelectList(terminologyService.GetItemByCode(Terminology.FUNCTIONS), "Code", "Name");
             ModelState.AddModelError("", "UserId or Password is incorrect.");
             return View(model);
         }
