@@ -1,4 +1,6 @@
-﻿using SAP.Addon.Controllers;
+﻿using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using SAP.Addon.Controllers;
 using SAP.Addon.Domain.Services.Business;
 using System;
 using System.Collections.Generic;
@@ -19,8 +21,13 @@ namespace SAP.Addon.Areas.Business.Controllers
         // GET: Business/BlanketAgreement
         public ActionResult Index()
         {
-            var model = service.GetAgreements();
-            return View(model);
+            //var model = service.GetAgreements();
+            return View();
+        }
+
+        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(service.GetAgreements().ToDataSourceResult(request));
         }
 
         // GET: Business/BlanketAgreement/Details/5
