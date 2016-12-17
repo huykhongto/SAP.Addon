@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SAP.Addon.Domain.Entities.Business
+{
+    public class ZOOAT
+    {
+        public int AbsID { get; set; }
+        [UIHint("PBFinder")]
+        public string BpCode { get; set; }
+        [UIHint("PBFinder")]
+        public string BpName { get; set; }
+
+        public int? CntctCode { get; set; }
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
+        public DateTime? TermDate { get; set; }
+
+        public string Descript { get; set; }
+
+        public string Type { get; set; }
+
+        public string Status { get; set; }
+
+        public string Owner { get; set; }//short?
+
+        public string Renewal { get; set; }
+
+        public string UseDiscnt { get; set; }
+
+        public short? RemindVal { get; set; }
+
+        public string RemindUnit { get; set; }
+
+        public string Remarks { get; set; }
+
+        public int? AtchEntry { get; set; }
+
+        public int? LogInstanc { get; set; }
+
+        public short? UserSign { get; set; }
+
+        public short? UserSign2 { get; set; }
+
+        public DateTime? UpdtDate { get; set; }
+
+        public DateTime? CreateDate { get; set; }
+
+        public string Cancelled { get; set; }
+
+        public string DataSource { get; set; }
+
+        public string Transfered { get; set; }
+
+        public string RemindFlg { get; set; }
+
+        public string Fulfilled { get; set; }
+
+        public string Attachment { get; set; }
+
+        public decimal? SettleProb { get; set; }
+
+        public int? UpdtTime { get; set; }
+
+        public string Method { get; set; }
+
+        public short? GroupNum { get; set; }
+
+        public short? ListNum { get; set; }
+
+        public DateTime? SignDate { get; set; }
+
+        public int? AmendedTo { get; set; }
+
+        public string U_AgreementNo { get; set; }
+
+        public decimal? U_Commission { get; set; }
+
+        public DateTime? U_Extension1 { get; set; }
+
+        public DateTime? U_Extension2 { get; set; }
+
+        public string U_Status { get; set; }
+
+        public string U_Condition { get; set; }
+
+    }
+
+}

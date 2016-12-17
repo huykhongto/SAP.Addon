@@ -1,0 +1,13 @@
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\SAP.Addon.Domain.dll.config
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\SAP.Addon.Domain.dll
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\SAP.Addon.Domain.pdb
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\EntityFramework.dll
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\EntityFramework.SqlServer.dll
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\MiniProfiler.dll
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\EntityFramework.xml
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\EntityFramework.SqlServer.xml
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\MiniProfiler.pdb
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\bin\Debug\MiniProfiler.xml
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\obj\Debug\SAP.Addon.Domain.csprojResolveAssemblyReference.cache
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\obj\Debug\SAP.Addon.Domain.dll
+D:\PROJECTS\SAP.AddOn\SAP.Addon\SAP.Addon.Domain\obj\Debug\SAP.Addon.Domain.pdb
