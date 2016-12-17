@@ -142,6 +142,7 @@
     <Content Include="Content\css\AdminLTE.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\Custom.css" />
     <Content Include="Content\css\datepicker3.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
@@ -561,6 +562,7 @@
     <Content Include="Content\kendo\2015.1.408\images\kendoui.ttf" />
     <Content Include="Content\kendo\2015.1.408\images\kendoui.woff" />
     <Content Include="Areas\Business\Views\BlanketAgreement\Create.cshtml" />
+    <Content Include="Areas\Business\Views\Shared\EditorTemplates\PBFinder.cshtml" />
     <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
@@ -888,7 +890,6 @@
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Areas\Business\Models\" />
-    <Folder Include="Areas\Business\Views\Shared\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

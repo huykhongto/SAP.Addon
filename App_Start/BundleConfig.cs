@@ -11,6 +11,7 @@ namespace SAP.Addon.App_Start
                 .Include("~/Content/css/select2.css")
                 .Include("~/Content/css/datepicker3.css")
                 .Include("~/Content/css/AdminLTE.css")
+                .Include("~/Content/css/Custom.css")
                 .Include("~/Content/css/skins/skin-blue.css"));
 
             bundles.Add(new ScriptBundle("~/Bundles/js")

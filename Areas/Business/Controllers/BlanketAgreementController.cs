@@ -1,6 +1,8 @@
 ﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using SAP.Addon.Controllers;
+using SAP.Addon.Domain.Entities.Administration;
+using SAP.Addon.Domain.Services.Administration;
 using SAP.Addon.Domain.Services.Business;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,11 @@ namespace SAP.Addon.Areas.Business.Controllers
     public class BlanketAgreementController : BaseController
     {
         private BlanketAgreementService service;
-        public BlanketAgreementController(BlanketAgreementService service)
+        private TerminologyService terminologyService;
+        public BlanketAgreementController(BlanketAgreementService service, TerminologyService ts)
         {
             this.service = service;
+            this.terminologyService = ts;
         }
 
         // GET: Business/BlanketAgreement
@@ -39,6 +43,15 @@ namespace SAP.Addon.Areas.Business.Controllers
         // GET: Business/BlanketAgreement/Create
         public ActionResult Create()
         {
+            ViewBag.AgreementMethod = new SelectList(terminologyService.GetItemByCode(Terminology.AGREEMENT_METHOD), "Code", "Name");
+            ViewBag.Status = new SelectList(terminologyService.GetItemByCode(Terminology.AGREEMENT_STATUS), "Code", "Name");
+            ViewBag.DocumentTypes = new SelectList(terminologyService.GetItemByCode(Terminology.DOCUMENT_TYPE), "Code", "Name");
+            ViewBag.PaymentTerms = new SelectList(terminologyService.GetItemByCode(Terminology.PAYMENT_TERM), "Code", "Name");
+            ViewBag.AgreementTypes = new SelectList(terminologyService.GetItemByCode(Terminology.AGREEMENT_TYPE), "Code", "Name");
+
+            var ownerList = service.GetOwnerList().ToList();
+            ViewBag.Owners = new SelectList(ownerList,"Code","Name");
+
             return View();
         }
 
@@ -100,6 +113,24 @@ namespace SAP.Addon.Areas.Business.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult FindCustomer(string pbCode="", string pbName = "", string pbAddress = "", string pbGroup = "", string pbType = "")
+        {
+            var customers = service.FindCustomers(pbCode, pbName, pbAddress, pbGroup, pbType);
+            return Json(customers.Take(50).ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult LoadContactPersons(string cardCode = "")
+        {
+            var contacts = service.LoadContactPersons(cardCode);
+            return Json(contacts.Take(50).ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult LoadBusinessPartner(string cardCode = "")
+        {
+            var contacts = service.LoadPartner(cardCode);
+            return Json(contacts, JsonRequestBehavior.AllowGet);
         }
     }
 }

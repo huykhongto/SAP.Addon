@@ -1,7 +1,361 @@
-﻿
+﻿@model SAP.Addon.Domain.Entities.Business.ZOOAT
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<script>
+
+    function onCodeData() {
+        return {
+            pbCode: $("#BpCode").val()
+        };
+    }
+        function onNameData() {
+            return {
+                pbName: $("#BpName").val()
+            };
+        }
+
+        function onSelected(e) {
+            var dataItem = this.dataItem(e.item.index());
+           // $(this).val(dataItem.CN);
+            $("#BpCode").val(dataItem.CC);
+            $("#BpName").val(dataItem.CN);
+
+            $("#PhoneNo").val(dataItem.TEL);
+            $("#Balance").val(dataItem.Balance);
+            $("#CG").val(dataItem.CG);
+            $("#CreditLine").val(dataItem.CreditLine);
+
+            ReloadContactPersons();
+            LoadBusinessPartner(dataItem.CC);
+        }
+
+        function onFiltering() {
+            
+            $("#PhoneNo").val('');
+            $("#Balance").val('');
+            $("#CG").val('');
+            $("#CreditLine").val('');
+
+            var dropDownList = $('#ContactPerson').data('kendoComboBox');
+            dropDownList.text('');
+
+        }
+
+        function LoadBusinessPartner(cardCode) {
+            $.ajax({
+                url: "@Url.Action("LoadBusinessPartner","BlanketAgreement")"+"?cardCode="+cardCode,
+                type: "Get",
+                success: function (data, status) {
+                    console.log(data);
+                    $("#PaymentTerms").val(data.PYMNTGROUP);
+                    $("#Email").val(data.E_MAIL);
+                    $("#PhoneNo").val(data.PHONE1);
+                },
+                error: function (data) {
+                    alert('failed');
+                }
+            })
+        }
+
+        function ReloadContactPersons()
+        {
+            var dropDownList = $('#ContactPerson').data('kendoComboBox');
+            dropDownList.text('');
+            dropDownList.dataSource.read();
+            dropDownList.refresh();
+        }
+</script>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="no-padding">
+                <div class="col-sm-4">
+                    <label class="control-label row">PB Code</label>
+                </div>
+                <div class="col-sm-8 ">
+                    @Html.EditorFor(m => m.BpCode, new { Data = "onCodeData", onSelected = "onSelected", onFiltering = "onFiltering", DataTextField = "CC" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label row">PB Name</label>
+                </div>
+
+                <div class="col-sm-8 ">
+
+                    @Html.EditorFor(m => m.BpName, new { Data = "onNameData", onSelected = "onSelected", onFiltering = "onFiltering", DataTextField = "CN" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label row">Contract No.</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.CntctCode, new { @class = "form-control  input-sm" })
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="row control-label">ContactPerson</label>
+                </div>
+                <div class="col-sm-8 ">
+                    @(Html.Kendo().ComboBox()
+                        .Name("ContactPerson")
+                        .HtmlAttributes(new { style = "width:100%;", @class= "" })
+                        .Placeholder("Select...")
+                        .DataTextField("Name")
+                        .DataValueField("Code")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadContactPersons", "BlanketAgreement")
+                                    .Data("filterContact");
+                            })
+                            .ServerFiltering(true);
+                        })
+                        .AutoBind(false)
+                        .CascadeFromField("BpCode")
+                    )
+                    <script>
+                        function filterContact() {
+                            return {
+                               
+                                cardCode: $("#BpCode").val()
+                            };
+                         }
+                    </script>
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="row control-label">Phone No</label>
+                </div>
+                <div class="col-sm-8 ">
+                    @Html.TextBox("PhoneNo", "", new { @class = "form-control input-sm", @readonly = "readonly" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="row control-label">Email</label>
+                </div>
+                <div class="col-sm-8 ">
+                    @Html.TextBox("Email", "", new { @class = "form-control input-sm", @readonly = "readonly" })
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="row control-label">Description</label>
+                </div>
+                <div class="col-sm-8 ">
+                    @Html.TextBoxFor(m => m.Descript, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">BP Payment Terms</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.TextBox("PaymentTerms", "", new { @class = "form-control input-sm", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">PB Balance (LC)</label>
+                </div>
+                <div class="col-sm-7 ">
+                    
+                    @Html.TextBox("Balance", "", new { @class = "form-control input-sm ", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">PB Credit Limit (LC)</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.TextBox("CreditLine", "", new { @class = "form-control input-sm" , @readonly="readonly"})
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">Total Amount (LC)</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.TextBoxFor(m => m.BpCode, new { @class = "form-control input-sm  bg-lightyellow", @readonly = "readonly" })
+                </div>
+                <div class="col-sm-5">
+                    <label class="row control-label">Total Quantity</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.TextBoxFor(m => m.BpCode, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">TotalWinAmount(LC)</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.TextBoxFor(m => m.BpCode, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
+                </div>
+                <div class="col-sm-5">
+                    <label class="row control-label">Total Win Quantity</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.TextBoxFor(m => m.BpCode, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="Active" class="row">Active</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.CheckBox("Active", false, new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">Agreement No.</label>
+                </div>
+                <div class="col-sm-3 ">
+                    @Html.TextBoxFor(m => m.U_Commission, new { @class = "form-control input-sm", @readonly = "readonly" })
+                </div>
+                <div class="col-sm-4 ">
+                    @Html.TextBoxFor(m => m.U_AgreementNo, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">Agreement Method</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.DropDownListFor(m => m.Method, (SelectList)ViewBag.AgreementMethod, new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">Start Date</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.Kendo().DatePickerFor(m => m.StartDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">End Date</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.Kendo().DatePickerFor(m => m.EndDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">Termination Date</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.Kendo().DatePickerFor(m => m.TermDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="row control-label">Signing Date</label>
+                </div>
+                <div class="col-sm-7 ">
+                    @Html.Kendo().DatePickerFor(m => m.SignDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">General</a></li>
+            <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Details</a></li>
+            <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Attachments</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="activity">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-sm-3">
+                            <label class="row control-label">Owner</label>
+                        </div>
+                        <div class="col-sm-8 ">
+                            @Html.DropDownListFor(m => m.Owner, (SelectList)ViewBag.AgreementTypes, "", new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="row control-label">AgreementType</label>
+                        </div>
+                        <div class="col-sm-8 ">
+                            @Html.DropDownListFor(m => m.Type, (SelectList)ViewBag.AgreementTypes, new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="row control-label">&nbsp;</label>
+                        </div>
+                        <div class="col-sm-8 ">
+                            @Html.CheckBox("Ignore", false, new { @class = "form-control  input-sm" })
+                            Ignore Prices Specifiled in Blanket Agreement
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <div class="col-sm-5">
+                            <label class="row control-label">Status</label>
+                        </div>
+                        <div class="col-sm-7 ">
+                            @Html.DropDownListFor(m => m.U_Status, (SelectList)ViewBag.Status, new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-5">
+                            <label class="row control-label">Document Type</label>
+                        </div>
+                        <div class="col-sm-7 ">
+                            @Html.DropDownListFor(m => m.Type, (SelectList)ViewBag.DocumentTypes, new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-5">
+                            <label class="row control-label">Payment Terms</label>
+                        </div>
+                        <div class="col-sm-7 ">
+                            @Html.DropDownListFor(m => m.Transfered, (SelectList)ViewBag.PaymentTerms, new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-2">
+                        <label class="control-label">Remarks</label>
+                    </div>
+                    <div class="col-sm-12 ">
+                        @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control input-sm bg-lightyellow", rows = "3" })
+                    </div>
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="timeline">
+                <!-- The timeline -->
+
+            </div>
+            <!-- /.tab-pane -->
+
+            <div class="tab-pane" id="settings">
+
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="#" class="btn btn-primary"><i class="fa fa-save"></i> Save</a>
+            <a href="@Url.Action("Index")" class="btn btn-danger"><i class="fa fa-remove"></i> Cancel</a>
+
+        </div>
+        <div class="col-md-6">
+            <a href="#" class="btn btn-primary  pull-right"><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+            <a href="#" class="btn btn-warning  pull-right"><i class="fa fa-external-link"></i> Post</a>
+
+        </div>
+    </div>
+</div>
+
+
 
