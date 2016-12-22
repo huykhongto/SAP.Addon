@@ -7,27 +7,18 @@ namespace SAP.Addon.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Bundles/css")
-                .Include("~/Content/css/bootstrap.css")
-                .Include("~/Content/css/select2.css")
-                .Include("~/Content/css/datepicker3.css")
-                .Include("~/Content/css/AdminLTE.css")
-                .Include("~/Content/css/Custom.css")
+                .Include("~/Content/plugins/treegrid/jquery.treegrid.css")
                 .Include("~/Content/css/skins/skin-blue.css"));
 
             bundles.Add(new ScriptBundle("~/Bundles/js")
-                .Include("~/Content/js/plugins/jquery/jquery-2.2.4.js")
-                .Include("~/Scripts/jquery.validate.min.js")
-                .Include("~/Scripts/jquery.validate.unobtrusive.min.js")
-                .Include("~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js.js")
-                .Include("~/Content/js/plugins/bootstrap/bootstrap.js")
-                .Include("~/Content/js/plugins/fastclick/fastclick.js")
-                .Include("~/Content/js/plugins/slimscroll/jquery.slimscroll.js")
-                .Include("~/Content/js/plugins/select2/select2.full.js")
-                .Include("~/Content/js/plugins/moment/moment.js")
-                .Include("~/Content/js/plugins/datepicker/bootstrap-datepicker.js")
-                .Include("~/Content/js/plugins/icheck/icheck.js")
-                .Include("~/Content/js/app.js")
-                .Include("~/Content/js/init.js"));
+                .Include("~/Scripts/Pages/application.js")
+                .Include("~/Content/plugins/forms/bootstrap-datepicker/bootstrap-datepicker.js")
+                .Include("~/Content/plugins/forms/bootstrap-markdown/bootstrap-markdown.js")
+                .Include("~/Content/plugins/forms/spinner/jquery.bootstrap-touchspin.js")
+                .Include("~/Content/plugins/forms/summernote/summernote.js")
+                .Include("~/Content/plugins/forms/maskedinput/jquery.maskedinput.js")
+                .Include("~/Scripts/Utils.js")
+);
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

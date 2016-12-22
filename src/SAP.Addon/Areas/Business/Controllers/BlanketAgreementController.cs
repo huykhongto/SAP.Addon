@@ -1,7 +1,6 @@
 ﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using SAP.Addon.Controllers;
-using SAP.Addon.Domain.Entities.Administration;
 using SAP.Addon.Domain.Services.Administration;
 using SAP.Addon.Domain.Services.Business;
 using System;
@@ -9,17 +8,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebCore.Domain.Entities.Configuration;
+using WebCore.Domain.Services.Configuration;
 
 namespace SAP.Addon.Areas.Business.Controllers
 {
     public class BlanketAgreementController : BaseController
     {
         private BlanketAgreementService service;
-        private TerminologyService terminologyService;
-        public BlanketAgreementController(BlanketAgreementService service, TerminologyService ts)
+        private ICategoryService categoryService;
+        private ICategoryItemService itemService;
+        public BlanketAgreementController(BlanketAgreementService service, ICategoryService ts, ICategoryItemService itemService)
         {
             this.service = service;
-            this.terminologyService = ts;
+            this.categoryService = ts;
+            this.itemService = itemService;
         }
 
         // GET: Business/BlanketAgreement
@@ -43,11 +46,11 @@ namespace SAP.Addon.Areas.Business.Controllers
         // GET: Business/BlanketAgreement/Create
         public ActionResult Create()
         {
-            ViewBag.AgreementMethod = new SelectList(terminologyService.GetItemByCode(Terminology.AGREEMENT_METHOD), "Code", "Name");
-            ViewBag.Status = new SelectList(terminologyService.GetItemByCode(Terminology.AGREEMENT_STATUS), "Code", "Name");
-            ViewBag.DocumentTypes = new SelectList(terminologyService.GetItemByCode(Terminology.DOCUMENT_TYPE), "Code", "Name");
-            ViewBag.PaymentTerms = new SelectList(terminologyService.GetItemByCode(Terminology.PAYMENT_TERM), "Code", "Name");
-            ViewBag.AgreementTypes = new SelectList(terminologyService.GetItemByCode(Terminology.AGREEMENT_TYPE), "Code", "Name");
+            ViewBag.AgreementMethod = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_METHOD), "Code", "Name");
+            ViewBag.Status = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_STATUS), "Code", "Name");
+            ViewBag.DocumentTypes = new SelectList(itemService.GetItemByCode(Category.DOCUMENT_TYPE), "Code", "Name");
+            ViewBag.PaymentTerms = new SelectList(itemService.GetItemByCode(Category.PAYMENT_TERM), "Code", "Name");
+            ViewBag.AgreementTypes = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_TYPE), "Code", "Name");
 
             var ownerList = service.GetOwnerList().ToList();
             ViewBag.Owners = new SelectList(ownerList,"Code","Name");

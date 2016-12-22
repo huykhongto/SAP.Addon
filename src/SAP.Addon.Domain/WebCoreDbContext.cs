@@ -1,10 +1,10 @@
-﻿using SAP.Addon.Domain.Mapping.Administration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebCore.Domain.Mappers.Configuration;
 
 namespace WebCore.Domain
 {
@@ -19,11 +19,10 @@ namespace WebCore.Domain
  
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<WebCoreDbContext>(null);
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.Add(new TerminologyConfiguration());
-            modelBuilder.Configurations.Add(new TerminologyItemConfiguration());
+            modelBuilder.Configurations.Add(new CategoryMapper());
+            modelBuilder.Configurations.Add(new CategoryItemMapper());
         }
-
-        //public System.Data.Entity.DbSet<SAP.Addon.Domain.Entities.Administration.Terminology> Terminologies { get; set; }
     }
 }

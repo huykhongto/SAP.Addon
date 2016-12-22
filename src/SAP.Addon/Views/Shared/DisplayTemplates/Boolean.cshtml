@@ -1,0 +1,10 @@
+﻿@model bool?
+
+<div class="toggle-custom">
+    <label class="toggle" data-on="ON" data-off="OFF">
+        <input type="checkbox" disabled id="@Html.IdFor(m=>m)" name="@Html.NameFor(m=>m)" @((Model.HasValue && Model.Value == true) ? "checked" : "") value="@(Model.HasValue && (Model.Value == true))" />
+        <span class="button-checkbox"></span>
+    </label>
+</div>
+
+<!-- End .form-group  -->

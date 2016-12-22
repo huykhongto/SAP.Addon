@@ -8,12 +8,7 @@ namespace SAP.Addon.Domain.Entities.Administration
 {
     public class Terminology
     {
-        public static string FUNCTIONS = "FUNCTIONS";
-        public static string AGREEMENT_METHOD = "AGREEMENT_METHOD";
-        public static string AGREEMENT_STATUS = "AGREEMENT_STATUS";
-        public static string DOCUMENT_TYPE = "DOCUMENT_TYPE";
-        public static string PAYMENT_TERM = "PAYMENT_TERM";
-        public static string AGREEMENT_TYPE = "AGREEMENT_TYPE";
+        
 
         public int Id { get; set; }
 

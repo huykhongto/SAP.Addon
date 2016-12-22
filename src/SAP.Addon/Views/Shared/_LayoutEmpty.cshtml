@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset=utf-8>
+    <title>Dashboard | Supr Admin Template</title>
+    <!-- Mobile specific metas -->
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+    <!-- Force IE9 to render in normal mode -->
+    <!--[if IE]>
+    <meta http-equiv="x-ua-compatible" content="IE=9" />
+    <![endif]-->
+    <meta name=author content="">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=application-name content="">
+    <!-- Import google fonts - Heading first/ text second -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel=stylesheet type=text/css>
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel=stylesheet type=text/css>
+    <!-- Css files -->
+    <link rel=stylesheet href='~/Contents/css/main.min.css'>
+    <!-- Fav and touch icons -->
+    <link rel=apple-touch-icon-precomposed sizes=144x144 href=Contents/img/ico/apple-touch-icon-144-precomposed.png>
+    <link rel=apple-touch-icon-precomposed sizes=114x114 href=Contents/img/ico/apple-touch-icon-114-precomposed.png>
+    <link rel=apple-touch-icon-precomposed sizes=72x72 href=Contents/img/ico/apple-touch-icon-72-precomposed.png>
+    <link rel=apple-touch-icon-precomposed href=Contents/img/ico/apple-touch-icon-57-precomposed.png>
+    <link rel=icon href=Contents/img/ico/favicon.ico type=image/png>
+    <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+    <meta name=msapplication-TileColor content="#3399cc">
+</head>
+<body class=error-page>
+    <div class="container error-container">
+        <div class="error-panel panel panel-default plain animated bounceIn">
+            <!-- Start .panel -->
+            @RenderBody()
+        </div>
+    </div>
+</body>
+<!-- Javascripts -->
+<!-- Load pace first -->
+<script src='~/Contents/plugins/core/pace/pace.min.js'>
+</script>
+<!-- Important javascript libs(put in all pages) -->
+<script src='~/Contents/js/libs/jquery-2.1.1.min.js'>
+</script>
+<script>window.jQuery || document.write('<script src="js/libs/jquery-2.1.1.min.js">\x3C/script>')</script>
+<script src='~/Contents/js/libs/jquery-ui-1.10.4.min.js'>
+</script>
+<script>window.jQuery || document.write('<script src="js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')</script>
+<script src='~/Contents/js/libs/jquery-migrate-1.2.1.min.js'>
+</script>
+<script>window.jQuery || document.write('<script src="js/libs/jquery-migrate-1.2.1.min.js">\x3C/script>')</script>
+<!--[if lt IE 9]>
+  <script type="text/javascript" src="js/libs/excanvas.min.js">
+</script>
+  <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+</script>
+  <script type="text/javascript" src="js/libs/respond.min.js">
+</script>
+<![endif]-->
+<script src='~/Contents/js/pages/dashboard.js'></script>
+<!-- Google Analytics:  -->
+@*<script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'http://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-3560057-23', 'auto');
+        ga('send', 'pageview');
+    </script>*@

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using WebCore.Domain;
 using WebCore.Domain.Interfaces;
 
-namespace SAP.Addon.Repositories
+namespace WebCore.Domain.Repositories
 {
     public abstract class RepositoryBase<T> where T : class
     {

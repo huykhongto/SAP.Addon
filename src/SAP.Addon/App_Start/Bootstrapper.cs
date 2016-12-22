@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using SAP.Addon.Domain.Repositories.Administration;
 using SAP.Addon.Domain.Services.Administration;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using WebCore.Domain;
 using WebCore.Domain.Interfaces;
+using WebCore.Domain.Interfaces.Configuration;
+using WebCore.Domain.Repositories.Configuration;
+using WebCore.Domain.Services.Configuration;
 
 namespace SAP.Addon.App_Start
 {
@@ -31,9 +33,10 @@ namespace SAP.Addon.App_Start
             // System
 
             // Repositories
-            builder.RegisterAssemblyTypes(typeof(TerminologyRepository).Assembly).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerRequest();
+            builder.RegisterAssemblyTypes(typeof(CategoryRepository).Assembly).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerRequest();
             // Services
-            builder.RegisterAssemblyTypes(typeof(TerminologyService).Assembly).Where(t => t.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerRequest();
+            builder.RegisterAssemblyTypes(typeof(CategoryService).Assembly).Where(t => t.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerRequest();
+
             builder.RegisterAssemblyTypes(typeof(ZUSRService).Assembly).Where(t => t.Name.EndsWith("Service")).InstancePerRequest();
 
             Autofac.IContainer container = builder.Build();

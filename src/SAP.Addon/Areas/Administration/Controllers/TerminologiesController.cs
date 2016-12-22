@@ -9,14 +9,15 @@ using System.Web.Mvc;
 using SAP.Addon.Domain.Entities.Administration;
 using WebCore.Domain;
 using SAP.Addon.Domain.Services.Administration;
+using WebCore.Domain.Services.Configuration;
 
 namespace AdminLTE_Template1.Areas.Administration.Controllers
 {
     public class TerminologiesController : Controller
     {
-        private ITerminologyService service;
+        private ICategoryService service;
 
-        public TerminologiesController(ITerminologyService ts)
+        public TerminologiesController(ICategoryService ts)
         {
             service = ts;
         }
@@ -24,7 +25,7 @@ namespace AdminLTE_Template1.Areas.Administration.Controllers
         // GET: Administration/Terminologies
         public ActionResult Index()
         {
-            return View(service.GetTerminologies());
+            return View(service.Get());
         }
 
         // GET: Administration/Terminologies/Details/5

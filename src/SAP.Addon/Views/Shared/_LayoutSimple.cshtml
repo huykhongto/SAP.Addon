@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <title>@ViewBag.Title</title><!-- Mobile specific metas -->
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><!-- Force IE9 to render in normal mode --><!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <meta name=author content="">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=application-name content=""><!-- Import google fonts - Heading first/ text second -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel=stylesheet type=text/css>
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel=stylesheet type=text/css><!-- Css files -->
+    <link rel=stylesheet href='~/Content/css/main.min.css'><!-- Fav and touch icons -->
+    <link rel=apple-touch-icon-precomposed sizes=144x144 href=Content/img/ico/apple-touch-icon-144-precomposed.png>
+    <link rel=apple-touch-icon-precomposed sizes=114x114 href=Content/img/ico/apple-touch-icon-114-precomposed.png>
+    <link rel=apple-touch-icon-precomposed sizes=72x72 href=Content/img/ico/apple-touch-icon-72-precomposed.png>
+    <link rel=apple-touch-icon-precomposed href=Content/img/ico/apple-touch-icon-57-precomposed.png>
+    <link rel=icon href='~/Content/img/ico/favicon.ico type=image/png'>
+    <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+    <meta name=msapplication-TileColor content="#3399cc">
+    <body class=login-page>
+        <div id=header class="animated fadeInDown">
+            <div class=row>
+                <div class=navbar>
+                    <div class="container text-center"><a class=navbar-brand href=dashboard.html>SAP<span class=slogan>Integration</span></a></div>
+                </div>
+                <!-- /navbar -->
+            </div>
+            <!-- End .row -->
+        </div>
+        <!-- End #header -->
+        <!-- Start login container -->
+        <div class="container login-container">
+            @RenderBody()
+            <!-- End .panel -->
+        </div>
+        <!-- End login container -->
+        <div class=container>
+            <div class=footer>
+                <p class=text-center>&copy;@DateTime.Now.ToString("yyyy") Copyright SAP.Integration All right reserved !!!</p>
+            </div>
+        </div>
+         <!-- Javascripts -->
+    <!-- Load pace first -->
+    <script src='~/Content/plugins/core/pace/pace.min.js'>
+</script>
+    <!-- Important javascript libs(put in all pages) -->
+    <script src='~/Content/js/libs/jquery-2.1.1.min.js'>
+    </script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-2.1.1.min.js">\x3C/script>')</script>
+        <script src='~/Content/js/libs/jquery-ui-1.10.4.min.js'>
+        </script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')</script>
+    <script src='~/Content/js/libs/jquery-migrate-1.2.1.min.js'>
+</script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-migrate-1.2.1.min.js">\x3C/script>')</script>
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="js/libs/excanvas.min.js">
+    </script>
+      <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+    </script>
+      <script type="text/javascript" src="js/libs/respond.min.js">
+    </script>
+    <![endif]-->
+    <script src='~/Content/js/pages/login.js'></script>
+        <!-- Google Analytics:  -->
+        @*<script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-3560057-23', 'auto');
+            ga('send', 'pageview');</script>*@

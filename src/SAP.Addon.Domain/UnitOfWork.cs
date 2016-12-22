@@ -22,9 +22,9 @@ namespace WebCore.Domain
             get { return dbContext ?? (dbContext = dbFactory.Init()); }
         }
 
-        public void Commit()
+        public int Commit()
         {
-            DbContext.Commit();
+            return DbContext.Commit();
         }
     }
 }

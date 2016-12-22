@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SAP.Addon.Domain.Entities.Administration;
 using SAP.Addon.Domain.Models;
 using SAP.Addon.Domain.Models.Administration;
-using SAP.Addon.Domain.Repositories.Administration;
 using SAP.Addon.Domain.Services.Administration;
 using Security;
 using System;
@@ -11,25 +9,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WebCore.Domain.Entities.Configuration;
+using WebCore.Domain.Models.Configuration;
+using WebCore.Domain.Services.Configuration;
 
 namespace SAP.Addon.Controllers
 {
     public class AccountController : BaseController
     {
         private ZUSRService service;
-        private ITerminologyService terminologyService;
+        private ICategoryService categoryService;
+        private ICategoryItemService itemService;
 
-        public AccountController(ZUSRService us, ITerminologyService terminologyService)
+        public AccountController(ZUSRService us, ICategoryService categoryService, ICategoryItemService itemService)
         {
             this.service = us;
-            this.terminologyService = terminologyService;
+            this.categoryService = categoryService;
+            this.itemService = itemService;
         }
 
         // GET: Account
         [AllowAnonymous]
         public ActionResult Login()
         {
-            ViewBag.FunctionList = new SelectList(terminologyService.GetItemByCode(Terminology.FUNCTIONS), "Code","Name");
+           ViewBag.FunctionList = new SelectList(itemService.GetItemByCode(Category.FUNCTIONS), "Code","Name");
             return View();
         }
 
@@ -68,7 +71,7 @@ namespace SAP.Addon.Controllers
                         return Redirect(returnUrl);
                 }
             }
-            ViewBag.FunctionList = new SelectList(terminologyService.GetItemByCode(Terminology.FUNCTIONS), "Code", "Name");
+            ViewBag.FunctionList = new SelectList(itemService.GetItemByCode(Category.FUNCTIONS), "Code", "Name");
             ModelState.AddModelError("", "UserId or Password is incorrect.");
             return View(model);
         }

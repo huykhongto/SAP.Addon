@@ -1,0 +1,9 @@
+﻿.validation-summary-errors {
+        display: block;
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ed7a53;
+        border-left-width: 3px;
+        background-image: linear-gradient(to bottom,#fff 0,#fef7f5 100%);
+        background-repeat: repeat-x;
+    }

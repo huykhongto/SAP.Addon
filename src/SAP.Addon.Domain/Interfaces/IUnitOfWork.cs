@@ -8,6 +8,6 @@ namespace WebCore.Domain.Interfaces
 {
   public interface IUnitOfWork
     {
-      void Commit();
+      int Commit();
     }
 }
