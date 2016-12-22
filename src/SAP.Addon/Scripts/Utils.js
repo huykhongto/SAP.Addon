@@ -101,3 +101,17 @@ function ConfirmDialog(title, text, type, yes_func, no_func)
         }
     });
 }
+
+function SetFullHeight(control, adjustHeight) {
+    if (control) {
+        var body = document.body,
+        html = document.documentElement;
+
+        var height = Math.max(body.scrollHeight, body.offsetHeight,
+                               html.clientHeight, html.scrollHeight, html.offsetHeight);
+
+        height = height - adjustHeight;
+        control.css("height", height + "px");
+    }
+
+}

@@ -13,7 +13,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdminLTE_Template1</RootNamespace>
+    <RootNamespace>SAP.AddOn</RootNamespace>
     <AssemblyName>AdminLTE Template</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
@@ -453,11 +453,6 @@
     <Content Include="Global.asax" />
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Administration\Views\Terminologies\Create.cshtml" />
-    <Content Include="Areas\Administration\Views\Terminologies\Delete.cshtml" />
-    <Content Include="Areas\Administration\Views\Terminologies\Details.cshtml" />
-    <Content Include="Areas\Administration\Views\Terminologies\Edit.cshtml" />
-    <Content Include="Areas\Administration\Views\Terminologies\Index.cshtml" />
     <Content Include="Areas\Business\Views\web.config" />
     <Content Include="Areas\Business\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Business\Views\BlanketAgreement\Index.cshtml" />
@@ -487,6 +482,7 @@
     <Content Include="Content\fonts\iconic.ttf" />
     <Content Include="Content\fonts\iconic.woff" />
     <Content Include="Content\fonts\minia.woff" />
+    <Content Include="Areas\Administration\Views\ADMAction\Index.cshtml" />
     <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
@@ -639,6 +635,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\ADMActionController.cs" />
     <Compile Include="Areas\Business\BusinessAreaRegistration.cs" />
     <Compile Include="Areas\Business\Controllers\BlanketAgreementController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -815,6 +812,7 @@
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_SideNavWidget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -824,7 +822,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Controllers\" />
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Areas\Business\Models\" />

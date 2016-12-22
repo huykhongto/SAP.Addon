@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAP.Addon.Domain.Mappers.Administration;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace WebCore.Domain
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new CategoryMapper());
             modelBuilder.Configurations.Add(new CategoryItemMapper());
+
+            //Admin
+            modelBuilder.Configurations.Add(new ADMActionMapper());
         }
     }
 }

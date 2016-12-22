@@ -11,5 +11,6 @@ namespace SAP.Addon.Controllers
     public class BaseController : Controller
     {
         // GET: Base
+        public WebCorePrincipal CurrentUser { get { return (User as WebCorePrincipal); } }
     }
 }

@@ -57,14 +57,17 @@
     <Compile Include="CategoryConfiguration.cs" />
     <Compile Include="DbFactory.cs" />
     <Compile Include="Disposable.cs" />
+    <Compile Include="Entities\Administration\ADMAction.cs" />
     <Compile Include="Entities\Business\ZOOAT.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Helpers\SqlMapper.cs" />
+    <Compile Include="Interfaces\Administration\IADMActionRepository.cs" />
     <Compile Include="Interfaces\Configuration\ICategoryItemRepository.cs" />
     <Compile Include="Interfaces\Configuration\ICategoryRepository.cs" />
     <Compile Include="Interfaces\IDbFactory.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Mappers\Administration\ADMActionMapper.cs" />
     <Compile Include="Mappers\BaseMapper.cs" />
     <Compile Include="Mappers\Configuration\CategoryItemMapper.cs" />
     <Compile Include="Mappers\Configuration\CategoryMapper.cs" />
@@ -79,9 +82,11 @@
     <Compile Include="Entities\Configuration\CategoryItem.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Administration\ADMActionRepository.cs" />
     <Compile Include="Repositories\Configuration\CategoryItemRepository.cs" />
     <Compile Include="Repositories\Configuration\CategoryRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Services\Administration\ADMActionService.cs" />
     <Compile Include="Services\Administration\ZUSRService.cs" />
     <Compile Include="Services\Business\BlanketAgreementService.cs" />
     <Compile Include="Services\Configuration\CategoryItemService.cs" />
@@ -93,12 +98,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\Administration\" />
-    <Folder Include="Interfaces\Administration\" />
-    <Folder Include="Mappers\Administration\" />
-    <Folder Include="Repositories\Administration\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -10,7 +10,7 @@ namespace SAP.Addon.Domain.Entities.Administration
     {
         public int Id { get; set; }
 
-        public int? TerminologyId { get; set; }
+        public int? CategoryId { get; set; }
 
         public string Name { get; set; }
 

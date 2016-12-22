@@ -1,0 +1,59 @@
+﻿@{ 
+    ViewBag.Title = "Actions";
+}
+
+@(Html.Kendo().Grid<SAP.Addon.Domain.Entities.Administration.ADMAction>()
+    .Name("Grid")
+            .Pageable(pager => pager.PageSizes(new[] { 30, 50, 100 }))
+    .Sortable()
+    .Selectable()
+    .Scrollable(s => s.Height(390))
+    .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+    .Editable(e => e.Mode(GridEditMode.InLine))
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Id).Width(50).Filterable(false).Title("MÃ");
+        columns.Bound(c => c.Name).Width(200).Title("Action").Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").ShowOperators(false)));
+
+        columns.Bound(c => c.Area).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").ShowOperators(false))).Title("Area");
+        columns.Bound(c => c.Description).Title("Description").Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").ShowOperators(false)));
+        columns.Command(command => { command.Edit().Text("Sửa").CancelText("Hủy").UpdateText("Lưu"); command.Destroy().Text("Xóa"); }).Width(170);
+    })
+    .DataSource(dt => dt
+        .Ajax()
+        .PageSize(30)
+         .Events(events =>
+            {
+                events.RequestEnd("onRequestEnd");
+            })
+            .Model(m =>
+            {
+                m.Id(p => p.Id);
+                m.Field(p => p.Id).Editable(false);
+                m.Field(p => p.Name).Editable(false);
+                m.Field(p => p.Area).Editable(false);
+            })
+        .Read(read => read.Action("Read", "ADMAction"))
+        .Create(update => update.Action("Create", "ADMAction"))
+        .Update(update => update.Action("Update", "ADMAction"))
+        .Destroy(update => update.Action("Destroy", "ADMAction"))
+        )
+)
+
+<script>
+
+    function onRequestEnd(e) {
+        if (e.type != "read") {
+            var dataSource = this;
+            setTimeout(function () {
+                dataSource.read();
+            });
+        }
+
+        SetFullHeight($('#Grid'), 200);
+    }
+  
+    $(document).ready(function () {
+        //SetFullHeight($('#Grid'), 180);
+    });
+</script>
