@@ -27,6 +27,7 @@ namespace WebCore.Domain
 
             //Admin
             modelBuilder.Configurations.Add(new ADMActionMapper());
+            modelBuilder.Configurations.Add(new ADMMenuMapper());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Microsoft.Ajax.Utilities;
 using SAP.Addon.Controllers;
 using SAP.Addon.Domain.Entities.Administration;
 using SAP.Addon.Domain.Services.Administration;
@@ -41,7 +42,8 @@ namespace SAP.Addon.Areas.Administration.Controllers
             }
 
             var data = actionService.Get();
-            var query = from a in actions
+
+            var query = from a in actions.DistinctBy(m=>m.Name)
                         join b in data on a.Name equals b.Name into prodGroup
                         from item in prodGroup.DefaultIfEmpty()
                         select new ADMAction() {

@@ -1,7 +1,7 @@
 @model int?
 
 @(Html.Kendo().IntegerTextBoxFor(m => m)
-      .HtmlAttributes(new { style = "width:100%" })
+      .HtmlAttributes( new { @class = "form-control" })
       .Min(int.MinValue)
       .Max(int.MaxValue)
 )

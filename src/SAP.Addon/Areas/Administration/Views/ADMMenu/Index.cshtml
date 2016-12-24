@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Menu";
+}
+
+<a class="btn btn-primary btn-sm" onclick="onCreate('@Url.Action("Create")')"><i class="fa fa-plus"></i> Thêm</a>
+
+
+<script>
+    function onCreate(url)
+    {
+        ShowPopup(url, 'Thêm mới menu', 500, 280, 'Lưu', function (sender) {
+            //ok
+            sender.closest('form').submit();
+            ReloadTreeList();
+        }, 'Hủy');
+    }
+
+    function onCreateChild(id) {
+        //var column = e.currentTarget.parentElement.parentElement;
+        //var id = column.cells[1].textContent;
+        //console.log(id);
+        var url = '@Url.Action("Create")' + '?PARENT_ID=' + id;
+
+        ShowPopup(url, 'Thêm mới menu', 500, 280, 'Lưu', function (sender) {
+            //ok
+            sender.closest('form').submit();
+            ReloadTreeList();
+        }, 'Hủy');
+    }
+
+    function onEdit(id)
+    {
+        //var column = e.currentTarget.parentElement.parentElement;
+        //var id = column.cells[1].textContent;
+        var url = '@Url.Action("Edit", new {ID = "/" })' + id;
+        ShowPopup(url, 'Cập nhật menu', 500, 280, 'Lưu', function (sender) {
+            //ok
+            sender.closest('form').submit();
+            //reload tree list
+            ReloadTreeList();
+        }, 'Hủy');
+    }
+
+    function onDelete(sender, id) {
+        var box = ShowConfirmation('Bạn có thực sự muốn xóa?', 'Xác nhận', function () { }, function () {
+            var column = sender.parentElement.parentElement;
+            var uiddelete = column.attributes[0].value;
+            //var id = column.cells[1].textContent;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete", "ADMMenu")',
+                dataType: 'json',
+                data: { ID: id},
+                success: function (data) {
+                    //console.log(data);
+                    if (data.succeed) {
+                        var treelist = $('#TreeList').data("kendoTreeList");
+                        var row = treelist.table.find('tr[data-uid=' + uiddelete + ']');
+                        treelist.removeRow(row);
+                    }
+                },
+            });
+        })
+
+
+    }
+
+    var actions = @Html.Raw(ViewBag.Actions);
+    
+    function getTextByID(id) {
+        for (var i = 0; i < actions.length; i++) 
+        {
+            if (actions[i].Value == id) {
+                return actions[i];
+            }
+        }
+        return null;
+    }
+</script>
+
+<script id="icon-template" type="text/x-kendo-template">
+    <i class="#: CssClass#"></i>
+</script>
+<script id="checkbox-template" type="text/x-kendo-template">
+    # if (Status==true) { #
+    <div class="label label-success"><i class="fa fa-check "></i></div>#} else { #
+    <div class="label label-danger"><i class="fa fa-remove"></i></div># } #
+</script>
+<script id="command-template" type="text/x-kendo-template">
+    <a class="btn btn-xs btn-primary" onclick="onCreateChild('#:Id#')"><i class="fa fa-plus"></i></a>
+    <a class="btn btn-xs btn-success" onclick="onEdit('#:Id#')"><i class="fa fa-pencil"></i></a>
+    <a class="btn btn-xs btn-danger" onclick="onDelete(this,'#:Id#')"><i class="fa fa-trash"></i></a>
+</script>
+<script id="action-template" type="text/x-kendo-template">
+    # var item = getTextByID(ActionId); #
+    # if(item != null) {#
+    <span>
+        #= item.Text #
+    </span>
+    # } #
+</script>
+
+<div class="">
+    
+    @(Html.Kendo().TreeList<SAP.Addon.Domain.Entities.Administration.ADMMenu>()
+            .Name("TreeList")
+            .Sortable()
+            .Selectable(true)
+    .Columns(columns =>
+    {
+        columns.Add().Field(c => c.Id).Width(40);
+        columns.Add().Field(c => c.Name).Title("Name");
+        
+        columns.Add().Field(x => x.ActionId).Title("Action").Width(200).TemplateId("action-template");
+        columns.Add().Field(c => c.OrderId).Width(80).Filterable(false).Title("Order").HtmlAttributes(new { @class = "align-center" });
+        columns.Add().Field(c => c.CssClass).Title("Icon").TemplateId("icon-template").Width(50).HtmlAttributes(new { @class = "align-center" });
+        columns.Add().Field(c => c.CssClass).Title("Icon class").Width(200);
+
+        columns.Add().Field(c => c.Status).Title("Status").TemplateId("checkbox-template").Width(70).HtmlAttributes(new { @class = "align-center" });
+        columns.Add().Field(c => c.Id).Title(" ").TemplateId("command-template").Width(110).HtmlAttributes(new { @class = "align-center" });
+    })
+        .DataSource( dt => dt
+                    .Events(events =>
+                    {
+                        events.Error("error_handler");
+                    })
+                .Model(m =>
+                {
+                    m.Id(p => p.Id);
+                    m.ParentId(p => p.ParentId);
+                    m.Field(p => p.Id).DefaultValue(0);
+                    m.Field(p => p.Status).DefaultValue(true);
+                    m.Field(p => p.OrderId).DefaultValue(1);
+                    m.Expanded(true);
+                }
+                    )
+                .Read(r => r.Action("Read", "ADMMenu"))
+                )
+    )
+</div>
+
+<script>
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            ShowNotify(message, 'error');
+        }
+    }
+
+    function ReloadTreeList() {
+        var treelist = $("#TreeList").data("kendoTreeList");
+        setTimeout(function(){
+            treelist.dataSource.read();
+            SetFullHeight($('#TreeList'), 180);
+        },500);
+        
+    }
+
+    $(document).ready(function () {
+        SetFullHeight($('#TreeList'), 180);
+    });
+</script>

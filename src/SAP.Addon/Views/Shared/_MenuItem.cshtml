@@ -1,0 +1,36 @@
+﻿@model SAP.Addon.Domain.Models.Administration.MenuViewModel
+    @{ 
+        var subItems = ViewData["SubMenus"] as IEnumerable<SAP.Addon.Domain.Models.Administration.MenuViewModel>;
+        var Menus = ViewData["Menus"] as IEnumerable<SAP.Addon.Domain.Models.Administration.MenuViewModel>;
+        var icon = "fa fa-folder-o";
+        if (!string.IsNullOrEmpty(Model.CssClass))
+        {
+            icon = Model.CssClass;
+        }
+
+    }
+
+<li>
+    @{
+        var spls = Model.ActionName.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+        var link = "#";
+        if (spls.Length == 2)
+        {
+            link = Url.Action(spls[1], spls[0], new { Area = Model.ActionArea });
+        }
+    }
+    <a href="@link">
+        <i class="s16 @icon"></i>
+        <span class=txt title="@Model.Name">@Model.Name</span>
+    </a>
+    @if (subItems != null && subItems.Count() > 0)
+    {
+        <ul class=sub>
+           @foreach (var menu in subItems)
+           {
+               var items = Menus.Where(m => m.ParentId == menu.Id).ToList();
+                @Html.Partial("_MenuItem", menu, new ViewDataDictionary { { "SubMenus", items }, {"Menus",Menus } });
+           }
+        </ul>
+    }
+</li>
