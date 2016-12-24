@@ -45,7 +45,7 @@ namespace SAP.Addon.Areas.Administration.Controllers
 
             var query = from a in actions.DistinctBy(m=>m.Name)
                         join b in data on a.Name equals b.Name into prodGroup
-                        from item in prodGroup.DefaultIfEmpty()
+                        from item in prodGroup.DefaultIfEmpty(new ADMAction() {Id = 0, Name=a.Name, Area=a.Area, Description = "" })
                         select new ADMAction() {
                             Id=item.Id,
                             Name = item.Name,
