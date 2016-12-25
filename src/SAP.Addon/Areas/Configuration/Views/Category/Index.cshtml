@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Categories";
+}
+
+<script>
+    $(window).resize(function () {
+        SetFullHeight($('#Grid'), 180);
+    });
+
+    function OnRequestStart(e) {
+        SetFullHeight($('#Grid'), 180);
+    }
+</script>
+
+<div class="">
+
+
+    @(Html.Kendo().Grid<WebCore.Domain.Entities.Configuration.Category>()
+    .Name("Grid")
+        .Pageable(pager => pager.PageSizes(new[] { 30, 50, 100 }))
+    .Sortable()
+        .Scrollable(s => s.Height(300))
+    .Selectable()
+    .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+    .Columns(columns =>
+    {
+        
+        columns.Bound(c => c.Id).Width(100).Filterable(false);
+        columns.Bound(c => c.Code).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").ShowOperators(false)));
+        columns.Bound(c => c.Name).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").ShowOperators(false)));
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+    })
+    .ClientDetailTemplateId("template")
+    .DataSource(dt => dt
+        .Ajax()
+            .Events(events =>
+            {
+                events.Error("error_handler");
+                events.RequestEnd("RequestEnd");
+                events.RequestStart("OnRequestStart");
+            })
+            .PageSize(30)
+            .Model(m =>
+            {
+                m.Id(c => c.Id);
+                m.Field(c => c.Id).DefaultValue(0).Editable(false); ;
+            })
+        .Create(update => update.Action("Create", "Category"))
+        .Read(r => r.Action("Read", "Category"))
+        .Update(update => update.Action("Update", "Category"))
+        .Destroy(update => update.Action("Delete", "Category"))
+        )
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .ToolBar(toolbar => toolbar.Create())
+    )
+</div>
+
+<script id="template" type="text/kendo-tmpl">
+
+    <input type="hidden" id="tmptree" value="grid_#=Id#" />
+    @(Html.Kendo().Grid<WebCore.Domain.Entities.Configuration.CategoryItem>()
+            .Name("grid_#=Id#")
+            //.Selectable()
+            .ToolBar(t => t.Create())
+            //.Events(e => e.DataBound("onDataBoundChild"))
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.Id);
+                columns.Bound(c => c.Code);
+                columns.Bound(c => c.Name);
+                columns.Bound(c => c.OrderId);
+
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+                // columns.Command(command => {command.Edit().Text(" "); command.Custom(cm=>cm.).Name("delete_treelist").Click("delete_treelist").Text("Delete"); }).Width(135);
+            })
+            .DataSource(dataSource => dataSource.Ajax()
+                .Events(events =>
+                {
+                    events.Error("error_handlerChild");
+                    events.RequestEnd("RequestEndChild");
+                })
+                .Model(m =>
+                {
+                    m.Id(c => c.Id);
+                    m.Field(c => c.Id).Editable(false);
+                    m.Field(c => c.Id).DefaultValue(0);
+
+                })
+                .PageSize(10)
+                .Read(read => read.Action("Read", "CategoryItem", new { Id = "#=Id#" }))
+                .Create(update => update.Action("Create", "CategoryItem", new { ParentID = "#=Id#" }))
+                .Update(update => update.Action("Update", "CategoryItem"))
+                .Destroy(update => update.Action("Destroy", "CategoryItem"))
+            )
+            .ToClientTemplate()
+    )
+
+
+
+</script>
+
+<script>
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    function error_handlerChild(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    function RequestEnd(e) {
+        if (e.type != "read") {
+            var dataSource = this;
+            setTimeout(function () {
+                dataSource.read();
+            });
+        }
+
+    }
+
+
+    function RequestEndChild(e) {
+        if (e.type != "read") {
+            var dataSource = this;
+            setTimeout(function () {
+                dataSource.read();
+            });
+        }
+    }
+    function delete_treelist(e) {
+
+        if (confirm('Bạn có thực sự muốn xóa?')) {
+            var column = e.currentTarget.parentElement.parentElement;
+            var uiddelete = column.attributes[0].value;
+            var iddelete = column.cells[4].textContent;
+            //var treelist = $("#" + $('#tmptree').val()).data("kendoTreeList");
+            //treelist.removeRow(column);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Destroy", "CategoryItem")',
+                dataType: 'json',
+                data: { Item: iddelete, uiddelete: uiddelete },
+                success: function (data) {
+                    if (data.uiddelete != "") {
+                        var treelist = $("#" + $('#tmptree').val()).data("kendoTreeList");
+                        var row = treelist.table.find('tr[data-uid=' + data.uiddelete + ']');
+                        treelist.removeRow(row);
+                    }
+                },
+            });
+        }
+
+    }
+</script>

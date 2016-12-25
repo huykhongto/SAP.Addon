@@ -138,6 +138,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\main.min.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\fonts\iconic.svg" />
@@ -471,6 +473,8 @@
     <Content Include="Content\plugins\ui\bootstrap-sweetalert\sweet-alert.js" />
     <Content Include="Content\plugins\ui\notify\jquery.gritter.js" />
     <Content Include="Content\plugins\ui\title-notifier\title_notifier.js" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
@@ -509,7 +513,19 @@
     <Content Include="Content\fonts\cuticons.woff" />
     <Content Include="Content\fonts\ecoico.woff" />
     <Content Include="Content\fonts\entypo.woff" />
+    <Content Include="Areas\Configuration\Views\web.config" />
+    <Content Include="Areas\Configuration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Configuration\Views\Category\Index.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -650,6 +666,7 @@
     <Content Include="Scripts\kendo\2015.1.408\kendo.web.min.js" />
     <Content Include="Scripts\kendo\2015.1.408\kendo.window.min.js" />
     <Content Include="Scripts\kendo\2015.1.408\pako_deflate.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Pages\application.js" />
     <Content Include="Scripts\Utils.js" />
     <Content Include="Web.config">
@@ -665,6 +682,9 @@
     <Compile Include="Areas\Administration\Controllers\ADMMenuController.cs" />
     <Compile Include="Areas\Business\BusinessAreaRegistration.cs" />
     <Compile Include="Areas\Business\Controllers\BlanketAgreementController.cs" />
+    <Compile Include="Areas\Configuration\ConfigurationAreaRegistration.cs" />
+    <Compile Include="Areas\Configuration\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Configuration\Controllers\CategoryItemController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -854,6 +874,9 @@
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Areas\Business\Models\" />
+    <Folder Include="Areas\Configuration\Models\" />
+    <Folder Include="Areas\Configuration\Views\CategoryItem\" />
+    <Folder Include="Areas\Configuration\Views\Shared\" />
     <Folder Include="Content\js\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />

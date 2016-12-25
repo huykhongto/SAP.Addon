@@ -10,7 +10,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebCore.Domain.Entities.Configuration;
-using WebCore.Domain.Models.Configuration;
 using WebCore.Domain.Services.Configuration;
 
 namespace SAP.Addon.Controllers

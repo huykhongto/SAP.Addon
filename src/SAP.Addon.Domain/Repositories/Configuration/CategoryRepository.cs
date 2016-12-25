@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using WebCore.Domain.Entities.Configuration;
 using WebCore.Domain.Interfaces;
 using WebCore.Domain.Interfaces.Configuration;
-using WebCore.Domain.Models.Configuration;
 
 namespace WebCore.Domain.Repositories.Configuration
 {

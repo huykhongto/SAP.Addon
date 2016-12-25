@@ -1,6 +1,5 @@
 ﻿
 using WebCore.Domain.Interfaces.Configuration;
-using WebCore.Domain.Models.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

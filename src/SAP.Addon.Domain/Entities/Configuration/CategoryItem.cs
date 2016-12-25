@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebCore.Domain.Entities;
 
-namespace WebCore.Domain.Models.Configuration
+namespace WebCore.Domain.Entities.Configuration
 {
     public class CategoryItem : BaseEntity
     {
