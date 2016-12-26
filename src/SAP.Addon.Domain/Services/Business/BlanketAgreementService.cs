@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using SAP.Addon.Domain.Entities.Business;
 using SAP.Addon.Domain.Models.Business;
 using System;
 using System.Collections.Generic;
@@ -79,5 +80,11 @@ namespace SAP.Addon.Domain.Services.Business
             string sql = "Select Convert(varchar,EmpID) As Code, UPPER(U_HRCode) + ' - ' + UPPER(FirstName) + ', ' + UPPER(LastName) As Name From OHEM Order by FirstName";
             return SqlHelper.QuerySQL<ContactData>(sql);
         }
+
+        public bool Save(ZOOAT model)
+        {
+            return SqlHelper.ExecuteSP("usp_MD_SaveBlanketAgreement", model) > 0;
+        }
+
     }
 }

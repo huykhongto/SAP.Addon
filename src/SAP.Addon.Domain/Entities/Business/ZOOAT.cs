@@ -10,15 +10,17 @@ namespace SAP.Addon.Domain.Entities.Business
     public class ZOOAT
     {
         public int AbsID { get; set; }
+        [Required]
         [UIHint("PBFinder")]
         public string BpCode { get; set; }
+        [Required]
         [UIHint("PBFinder")]
         public string BpName { get; set; }
 
         public int? CntctCode { get; set; }
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? StartDate { get; set; }
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? EndDate { get; set; }
 
         public DateTime? TermDate { get; set; }
@@ -43,7 +45,7 @@ namespace SAP.Addon.Domain.Entities.Business
 
         public int? AtchEntry { get; set; }
 
-        public int? LogInstanc { get; set; }
+        public int? LogInstanc { get; set; } //active
 
         public short? UserSign { get; set; }
 
@@ -91,6 +93,9 @@ namespace SAP.Addon.Domain.Entities.Business
 
         public string U_Condition { get; set; }
 
+        public int Err { get; set; }
+
+        public IEnumerable<ZOAT1TMP> Details { get; set; }
     }
 
 }

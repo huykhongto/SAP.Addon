@@ -8,10 +8,9 @@ namespace SAP.Addon.Domain.Models.Business
 {
     public class ContactData
     {
-        public string Code;
+        public string Code { get; set; }
 
-        public string Name;
-
-        public bool Def;
+        public string Name { get; set; }
+        public bool Def { get; set; }
     }
 }

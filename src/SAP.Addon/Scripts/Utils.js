@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    kendo.culture("en-GB");
     $(".mask-phone").mask("(999) 999-9999", { completed: function () { } });
     $(".datepicker").datepicker();
     $('.tree').treegrid();

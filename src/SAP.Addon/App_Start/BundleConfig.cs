@@ -7,6 +7,7 @@ namespace SAP.Addon.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Bundles/css")
+                .Include("~/Content/Site.css")
                 .Include("~/Content/plugins/treegrid/jquery.treegrid.css")
                 .Include("~/Content/css/skins/skin-blue.css"));
 

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SAP.Addon.Domain.Entities.Business.ZOAT1TMP>
+
+<script>
+    function AddItem(sender) {
+        ShowNotify('Ngày mai làm ^^');
+    }
+</script>
+
+
+<a href="@Url.Action("AddItem","BlanketAgreementDetail")" class="btn btn-primary btn-sm" onclick="AddItem(this); return false;"><i class="fa fa-plus"></i> Add item</a>
+<table class="table table-bordered" style="width:3000px;">
+    <thead>
+        <tr>
+            <th class="xxx">Item No.</th>
+            <th class="xxx">Description</th>
+            <th class="xxx">Item Group</th>
+            <th class="xxx">Manufacturer</th>
+
+            <th class="xxx">Original</th>
+            <th class="xxx">SaleQty(SAP)</th>
+            <th class="xxx">SalePrice(SAP)</th>
+            <th class="xxx">Base Price</th>
+
+            <th class="xxx">Sale Unit</th>
+            <th class="xxx">Tender Unit</th>
+            <th class="xxx">Items/Sale Unit</th>
+            <th class="xxx">Planed Qty</th>
+
+            <th class="xxx">Unit Price</th>
+            <th class="xxx">Vat%</th>
+            <th class="xxx">Price after Vat</th>
+            <th class="xxx">Amount</th>
+
+            <th class="xxx">Discount%</th>
+            <th class="xxx">Line Status</th>
+            <th class="xxx">Notify Qty</th>
+            <th class="xxx">Remarks</th>
+
+            <th class="xxx">Company Code</th>
+            <th class="xxx">Company Name</th>
+            <th class="xxx">Tender Type</th>
+            <th class="xxx">Valid On</th>
+
+            <th class="xxx">Valid To</th>
+            <th class="xxx">Base Agreement</th>
+            <th class="xxx">Base Agreement Line</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailItem.cshtml", item)
+        }
+    </tbody>
+</table>

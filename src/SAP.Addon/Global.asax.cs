@@ -7,6 +7,8 @@ using Security;
 using System;
 using System.Web.Security;
 using Newtonsoft.Json;
+using System.Threading;
+using System.Globalization;
 
 namespace SAP.Addon
 {
@@ -49,6 +51,13 @@ namespace SAP.Addon
                 }
             }
 
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var culture = new CultureInfo("en-GB", false);
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
         }
     }
 }

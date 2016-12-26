@@ -59,6 +59,7 @@
     <Compile Include="Disposable.cs" />
     <Compile Include="Entities\Administration\ADMAction.cs" />
     <Compile Include="Entities\Administration\ADMMenu.cs" />
+    <Compile Include="Entities\Business\ZOAT1TMP.cs" />
     <Compile Include="Entities\Business\ZOOAT.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Helpers\SqlMapper.cs" />

@@ -1,6 +1,7 @@
 ﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using SAP.Addon.Controllers;
+using SAP.Addon.Domain.Entities.Business;
 using SAP.Addon.Domain.Services.Administration;
 using SAP.Addon.Domain.Services.Business;
 using System;
@@ -52,26 +53,38 @@ namespace SAP.Addon.Areas.Business.Controllers
             ViewBag.PaymentTerms = new SelectList(itemService.GetItemByCode(Category.PAYMENT_TERM), "Code", "Name");
             ViewBag.AgreementTypes = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_TYPE), "Code", "Name");
 
-            var ownerList = service.GetOwnerList().ToList();
+            var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList,"Code","Name");
 
-            return View();
+            return View(new ZOOAT() { Owner = "53", StartDate = DateTime.Now, EndDate = DateTime.Now, Details = new List<ZOAT1TMP>()});
         }
 
         // POST: Business/BlanketAgreement/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ZOOAT model)
         {
+            ViewBag.AgreementMethod = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_METHOD), "Code", "Name");
+            ViewBag.Status = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_STATUS), "Code", "Name");
+            ViewBag.DocumentTypes = new SelectList(itemService.GetItemByCode(Category.DOCUMENT_TYPE), "Code", "Name");
+            ViewBag.PaymentTerms = new SelectList(itemService.GetItemByCode(Category.PAYMENT_TERM), "Code", "Name");
+            ViewBag.AgreementTypes = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_TYPE), "Code", "Name");
+
+            var ownerList = service.GetOwnerList();
+            ViewBag.Owners = new SelectList(ownerList, "Code", "Name");
+
+            if (ModelState.IsValid)
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if(service.Save(model))
+                    return RedirectToAction("Create");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("serice", ex.Message);
+                return View(model);
             }
+            return View(model);
         }
 
         // GET: Business/BlanketAgreement/Edit/5
