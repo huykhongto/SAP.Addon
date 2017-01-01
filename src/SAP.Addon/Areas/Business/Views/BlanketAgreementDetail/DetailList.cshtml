@@ -2,8 +2,20 @@
 
 <script>
     function AddItem(sender) {
-        ShowNotify('Ngày mai làm ^^');
+        $.ajax({
+            url: sender.href,
+            cache: false,
+            success: function (html) {
+                //alert(html);
+                $("#DetailList").append(html);
+            },
+            error: function (html) {
+                ShowNotify(html, 'error');
+            }
+        });
+        return false;
     }
+
 </script>
 
 
@@ -46,7 +58,7 @@
             <th class="xxx">Base Agreement Line</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="DetailList">
         @foreach (var item in Model)
         {
             @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailItem.cshtml", item)

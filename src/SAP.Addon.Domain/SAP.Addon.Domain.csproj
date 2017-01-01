@@ -80,6 +80,7 @@
     <Compile Include="Models\Administration\ZUSR.cs" />
     <Compile Include="Entities\BaseModel.cs" />
     <Compile Include="Models\Business\BlanketAgreementListViewModel.cs" />
+    <Compile Include="Models\Business\BlanketAgreementSearchParams.cs" />
     <Compile Include="Models\Business\BusinessPartner.cs" />
     <Compile Include="Models\Business\ContactData.cs" />
     <Compile Include="Models\Business\CustomerSearchViewModel.cs" />

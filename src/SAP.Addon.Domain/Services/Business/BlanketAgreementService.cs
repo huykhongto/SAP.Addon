@@ -13,23 +13,9 @@ namespace SAP.Addon.Domain.Services.Business
     {
         public IEnumerable<BlanketAgreementListViewModel> GetAgreements()
         {
-            return SqlHelper.QuerySP<BlanketAgreementListViewModel>("usp_MD_GetAgreementList", new {
-                //ABSID = 0,
-                //TOABSID = 0,
-                //STARTDATE = 0,
-                //TOSTARTDATE = 0,
-                //ENDDATE = 0,
-                //TOENDDATE = 0,
-                //SIGNGDATE = 0,
-                //TOSIGNDATE = 0,
-                //BPCODE = 0,
-                //BPNAME = 0,
-                //DESCRIPTION = 0,
-                //STATUS = 0,
-                //ITEMNAME = 0,
-                //SHOWINACTIVE = 0,
-                //USERSIGN = 0
-            });
+            var prs = new BlanketAgreementSearchParams();
+
+            return SqlHelper.QuerySP<BlanketAgreementListViewModel>("usp_MD_GetAgreementList", prs);
         }
 
         public IEnumerable<CustomerSearchViewModel> FindCustomers(string pbCode, string pbName, string pbAddress, string pbGroup, string pbType)

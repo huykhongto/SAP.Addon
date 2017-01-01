@@ -1,5 +1,7 @@
 ﻿@model SAP.Addon.Domain.Entities.Business.ZOAT1TMP
 <tr>
+@using (@Html.BeginCollectionItem("Details"))
+{
     <td>1</td>
     <td>Jacob Olsen</td>
     <td>Developer</td>
@@ -29,4 +31,5 @@
     <td>Jacob Olsen</td>
     <td>Developer</td>
     <td>2530$</td>
+}
 </tr>
