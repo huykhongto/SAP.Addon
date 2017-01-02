@@ -89,6 +89,7 @@
     <Compile Include="Entities\Configuration\CategoryItem.cs" />
     <Compile Include="Models\Business\MeasureListViewModel.cs" />
     <Compile Include="Models\Business\OriginalListViewModel.cs" />
+    <Compile Include="Models\Business\ZOOATViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Administration\ADMMenuRepository.cs" />

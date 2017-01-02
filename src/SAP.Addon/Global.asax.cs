@@ -9,6 +9,7 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Globalization;
+using SAP.AddOn.App_Start;
 
 namespace SAP.Addon
 {
@@ -20,6 +21,7 @@ namespace SAP.Addon
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Bootstrapper.Run();
+            ModelMapper.RegisterAutoMapperMap();
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)

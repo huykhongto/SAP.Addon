@@ -1,13 +1,14 @@
-﻿using System;
+﻿using SAP.Addon.Domain.Entities.Business;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SAP.Addon.Domain.Entities.Business
+namespace SAP.Addon.Domain.Models.Business
 {
-    public class ZOOAT
+    public class ZOOATViewModel
     {
         public int AbsID { get; set; }
         [Required]
@@ -94,6 +95,7 @@ namespace SAP.Addon.Domain.Entities.Business
         public string U_Condition { get; set; }
 
         public int Err { get; set; }
-    }
 
+        public IEnumerable<ZOAT1TMP> Details { get; set; }
+    }
 }

@@ -7,24 +7,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebCore.Domain.Services.Configuration;
 
 namespace SAP.AddOn.Areas.Business.Controllers
 {
     public class BlanketAgreementDetailController : BaseController
     {
         private BlanketAgreementItemService service;
+        private ICategoryService categoryService;
+        private ICategoryItemService itemService;
 
-        public BlanketAgreementDetailController(BlanketAgreementItemService service)
+        public BlanketAgreementDetailController(BlanketAgreementItemService service, ICategoryService ts, ICategoryItemService itemService)
         {
             this.service = service;
+            this.categoryService = ts;
+            this.itemService = itemService;
         }
 
 
         public ActionResult AddItem()
         {
-            var model = new ZOAT1TMP();
+            var model = new ZOAT1TMP() {
+                U_Start = DateTime.Now,
+                U_End = DateTime.Now,
+                LineStatus = "O",
+                U_Notify = "N",
+                U_TenderType = "TT01",
+            };
+
             ViewBag.Origins = new SelectList(service.GetOriginalList(),"Code","Name");
             ViewBag.UoMs = new SelectList(service.GetMeasureList(), "Code", "Name");
+
+            ViewBag.LineStatus = new SelectList(itemService.GetItemByCode("LINE_STATUS"), "Code", "Name");
+            ViewBag.NotifyQty = new SelectList(itemService.GetItemByCode("NOTIFY_QTY"), "Code", "Name");
+            ViewBag.TenderTypes = new SelectList(itemService.GetItemByCode("TENDER_TYPE"), "Code", "Name");
+
             return PartialView("DetailItem", model);
         }
 

@@ -48,36 +48,36 @@
     <td>
         @Html.EditorFor(m => m.U_PriceAftVat, new { @class = "form-control input-sm" })
     </td>
-    <td>
-        @Html.EditorFor(m => m.CumAmntFC, new { @class = "form-control input-sm" })
+    <td class="bg-lightyellow">
+        <label></label>
     </td>
     <td>
         @Html.EditorFor(m => m.Discount, new { @class = "form-control input-sm" })
     </td>
     <td>
-        @Html.EditorFor(m => m.LineStatus, new { @class = "form-control input-sm" })
+        @Html.DropDownListFor(m => m.LineStatus, (SelectList)ViewBag.LineStatus, "", new { @class = "form-control input-sm" })
     </td>
     <td>
-        @Html.EditorFor(m => m.U_Notify, new { @class = "form-control input-sm" })
+        @Html.DropDownListFor(m => m.U_Notify, (SelectList)ViewBag.NotifyQty, "", new { @class = "form-control input-sm" })
     </td>
     <td>
         @Html.EditorFor(m => m.FreeTxt, new { @class = "form-control input-sm" })
     </td>
     <td>
-        @Html.EditorFor(m => m.U_BPCode, new { @class = "form-control input-sm" })
+        @Html.EditorFor(m => m.U_BPCode, new { Data = "onItemCodeData", onSelected = "onItemSelected", onFiltering = "onItemFiltering", DataTextField = "CC" })
     </td>
     <td>
-        @Html.EditorFor(m => m.U_BPName, new { @class = "form-control input-sm" })
+        @Html.EditorFor(m => m.U_BPName, new { Data = "onItemNameData", onSelected = "onItemSelected", onFiltering = "onItemFiltering", DataTextField = "CN" })
     </td>
     <td>
-        @Html.EditorFor(m => m.U_TenderType, new { @class = "form-control input-sm" })
+        @Html.DropDownListFor(m => m.U_TenderType, (SelectList)ViewBag.TenderTypes, "", new { @class = "form-control input-sm" })
     </td>
     <td>
-        @Html.EditorFor(m => m.U_Start, new { @class = "form-control input-sm" })
+        @Html.Kendo().DatePickerFor(m => m.U_Start).HtmlAttributes(new { @class = "form-control input-sm" }).Format("dd/MM/yyy")
     </td>
 
     <td>
-        @Html.EditorFor(m => m.U_End, new { @class = "form-control input-sm" })
+        @Html.Kendo().DatePickerFor(m => m.U_End).HtmlAttributes(new { @class = "form-control input-sm" }).Format("dd/MM/yyy")
     </td>
     <td>
         @Html.EditorFor(m => m.AgrNo, new { @class = "form-control input-sm" })

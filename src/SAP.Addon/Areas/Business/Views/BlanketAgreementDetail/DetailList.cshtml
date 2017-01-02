@@ -74,7 +74,7 @@
             //$(control.element[0]).parent().parent().prev("td").find('input').first().val(dataItem.IC);
             $(control.element[0]).closest('tr').find("input[name*='ItemCode']").first().val(dataItem.IC);
             $(control.element[0]).closest('tr').find("input[name*='ItemName']").first().val(dataItem.IN);
-            $(control.element[0]).closest('tr').find("input[name*='U_VatPrcnt']").first().val(dataItem.Vat);
+            $(control.element[0]).closest('tr').find("input[name*='U_VatPrcnt']").first().data("kendoNumericTextBox").value(dataItem.Vat);
 
             //console.log($(control.element[0]).closest('tr').find("label:nth-child(1)"));
             var labelList = $(control.element[0]).closest('tr').find("label:nth-child(1)");
@@ -96,7 +96,8 @@
             SelectOriginal(cmbOriginal, dataItem);
 
             var cmbTenderUnit = $(control.element[0]).closest('tr').find("select[name*='U_TenderUnit']").first();
-            SelectTenderUnit(cmbTenderUnit, dataItem);
+            var txtCumQty = $(control.element[0]).closest('tr').find("input[name*='CumQty']").first().data("kendoNumericTextBox");
+            SelectTenderUnit(cmbTenderUnit, txtCumQty, dataItem);
         }
 
         function SelectOriginal(cmbOriginal, dataItem)
@@ -113,13 +114,16 @@
             //cmbOriginal.val("");
         }
 
-    function SelectTenderUnit(cmbTenderUnit, dataItem) {
+    function SelectTenderUnit(cmbTenderUnit, txtCumQty, dataItem) {
         //console.log(cmbTenderUnit);
         $.ajax({
             url: '@Url.Action("GetTenderUnit", "BlanketAgreementDetail")' + '?ItemCode=' + dataItem.IC + '&SaleUnit=' + dataItem.UOM,
             success: function (data, status) {
-                if (cmbTenderUnit != null)
+                if (cmbTenderUnit != null) {
                     cmbTenderUnit.val(data.UoM);
+                    txtCumQty.value(data.ItemsPerUoM);
+                }
+                    
 
             },
             error: function () { }
@@ -127,7 +131,47 @@
         //cmbOriginal.val("");
     }
 
+
+    ///customer finder
+    function onItemCodeData() {
+        return {
+            pbCode: $(currentControl.element[0]).closest('tr').find("input[name*='U_BPCode']").first().val() //$("#BpCode").val()
+        };
+    }
+    function onItemNameData() {
+        return {
+            pbName: $(currentControl.element[0]).closest('tr').find("input[name*='U_BPName']").first().val()//$("#BpName").val()
+        };
+    }
+
+    function onItemSelected(e) {
+        var dataItem = this.dataItem(e.item.index());
+        // $(this).val(dataItem.CN);
+        $(currentControl.element[0]).closest('tr').find("input[name*='U_BPCode']").first().val(dataItem.CC);
+        $(currentControl.element[0]).closest('tr').find("input[name*='U_BPName']").first().val(dataItem.CN);
+    }
+
+    function onItemFiltering(e) {
+        currentControl = e.sender;
+    }
+
 </script>
+
+<style>
+    .width50 {width:50px;}
+    .width100 {width:100px;}
+    .width150 {width:150px;}
+    .width200 {width:200px;}
+    .width250 {width:250px;}
+    .width70 {width:70px;}
+    table tr td label {font-weight:normal; font-size:11px;}
+
+    .table>tbody>tr>td {
+    padding: 3px !important;
+    vertical-align: middle !important;
+}
+    
+</style>
 
 
 
@@ -135,45 +179,52 @@
 <table class="table table-bordered" style="width:3500px;">
     <thead>
         <tr>
-            <th  style="width:100px;">Item No.</th>
-            <th style="width:200px;">Description</th>
-            <th class="xxx">Item Group</th>
-            <th class="xxx">Manufacturer</th>
+            <th class="width100">Item No.</th>
+            <th class="width200">Description</th>
+            <th class="width100">Item Group</th>
+            <th class="width150">Manufacturer</th>
 
-            <th style="width:200px;">Original</th>
-            <th class="xxx">SaleQty(SAP)</th>
-            <th class="xxx">SalePrice(SAP)</th>
-            <th class="xxx">Base Price</th>
+            <th class="width200">Original</th>
+            <th class="width100">SaleQty(SAP)</th>
+            <th class="width100">SalePrice(SAP)</th>
+            <th class="width100">Base Price</th>
 
-            <th class="xxx">Sale Unit</th>
-            <th class="xxx">Tender Unit</th>
-            <th class="xxx">Items/Sale Unit</th>
-            <th class="xxx">Planed Qty</th>
+            <th class="width100">Sale Unit</th>
+            <th class="width100">Tender Unit</th>
+            <th class="width100">Items/Sale Unit</th>
+            <th class="width100">Planed Qty</th>
 
-            <th style="width:100px;">Unit Price</th>
-            <th style="width:50px;">Vat%</th>
-            <th class="xxx">Price after Vat</th>
-            <th class="xxx">Amount</th>
+            <th class="width100">Unit Price</th>
+            <th class="width70">Vat%</th>
+            <th class="width100">Price after Vat</th>
+            <th class="width100">Amount</th>
 
-            <th class="xxx">Discount%</th>
-            <th class="xxx">Line Status</th>
-            <th class="xxx">Notify Qty</th>
-            <th class="xxx">Remarks</th>
+            <th class="width100">Discount%</th>
+            <th class="width100">Line Status</th>
+            <th class="width100">Notify Qty</th>
+            <th class="width100">Remarks</th>
 
-            <th class="xxx">Company Code</th>
-            <th class="xxx">Company Name</th>
-            <th class="xxx">Tender Type</th>
-            <th class="xxx">Valid On</th>
+            <th class="width100">Company Code</th>
+            <th class="width200">Company Name</th>
+            <th class="width100">Tender Type</th>
+            <th class="width70">Valid On</th>
 
-            <th class="xxx">Valid To</th>
-            <th style="width:150px;">Base Agreement</th>
-            <th style="width:150px;">Base Agreement Line</th>
+            <th class="width70">Valid To</th>
+            <th class="width150">Base Agreement</th>
+            <th class="width150">Base Agreement Line</th>
         </tr>
     </thead>
     <tbody id="DetailList">
         @foreach (var item in Model)
         {
-            @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailItem.cshtml", item, new ViewDataDictionary { { "Origins" , new SelectList(ViewBag.Origins, "Code","Name",item.U_OtherName) }, { "UoMs", new SelectList(ViewBag.UoMs, "Code", "Name", item.U_TenderType) } })
+            @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailItem.cshtml", item, new ViewDataDictionary {
+           { "Origins" , new SelectList(ViewBag.Origins, "Code","Name",item.U_OtherName) },
+
+           { "LineStatus" , new SelectList(ViewBag.LineStatus, "Code","Name",item.LineStatus) },
+           { "TenderTypes" , new SelectList(ViewBag.TenderTypes, "Code","Name",item.U_TenderType) },
+           { "NotifyQty" , new SelectList(ViewBag.NotifyQty, "Code","Name",item.U_Notify) },
+
+           { "UoMs", new SelectList(ViewBag.UoMs, "Code", "Name", item.U_TenderType) } })
         }
     </tbody>
 </table>

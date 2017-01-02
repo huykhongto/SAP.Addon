@@ -23,7 +23,7 @@ namespace SAP.Addon.Domain.Entities.Business
         public short? ItemGroup { get; set; }
 
         public decimal? PlanQty { get; set; }
-        [UIHint("Currency")]
+
         public decimal? UnitPrice { get; set; }
 
         public string Currency { get; set; }
@@ -72,9 +72,9 @@ namespace SAP.Addon.Domain.Entities.Business
 
         public string U_TenderType { get; set; }
         public string U_TenderUnit { get; set; }//add more
-
+        [UIHint("PBFinder")]
         public string U_BPCode { get; set; }
-
+        [UIHint("PBFinder")]
         public string U_BPName { get; set; }
 
         public string U_Notify { get; set; }

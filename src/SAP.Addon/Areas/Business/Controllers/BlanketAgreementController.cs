@@ -2,6 +2,7 @@
 using Kendo.Mvc.UI;
 using SAP.Addon.Controllers;
 using SAP.Addon.Domain.Entities.Business;
+using SAP.Addon.Domain.Models.Business;
 using SAP.Addon.Domain.Services.Administration;
 using SAP.Addon.Domain.Services.Business;
 using System;
@@ -56,15 +57,20 @@ namespace SAP.Addon.Areas.Business.Controllers
             ViewBag.AgreementTypes = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_TYPE), "Code", "Name");
             ViewBag.Origins = detailService.GetOriginalList();
             ViewBag.UoMs = detailService.GetMeasureList();
+
+            ViewBag.LineStatus = itemService.GetItemByCode("LINE_STATUS");
+            ViewBag.NotifyQty = itemService.GetItemByCode("NOTIFY_QTY");
+            ViewBag.TenderTypes = itemService.GetItemByCode("TENDER_TYPE");
+
             var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList,"Code","Name");
 
-            return View(new ZOOAT() { Owner = "53", StartDate = DateTime.Now, EndDate = DateTime.Now, Details = new List<ZOAT1TMP>()});
+            return View(new ZOOATViewModel() { Owner = "53", StartDate = DateTime.Now, EndDate = DateTime.Now, Details = new List<ZOAT1TMP>()});
         }
 
         // POST: Business/BlanketAgreement/Create
         [HttpPost]
-        public ActionResult Create(ZOOAT model)
+        public ActionResult Create(ZOOATViewModel model)
         {
             ViewBag.AgreementMethod = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_METHOD), "Code", "Name", model.Method);
             ViewBag.Status = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_STATUS), "Code", "Name",model.Status);
@@ -74,14 +80,19 @@ namespace SAP.Addon.Areas.Business.Controllers
             ViewBag.Origins = detailService.GetOriginalList();
             ViewBag.UoMs = detailService.GetMeasureList();
 
+            ViewBag.LineStatus = itemService.GetItemByCode("LINE_STATUS");
+            ViewBag.NotifyQty = itemService.GetItemByCode("NOTIFY_QTY");
+            ViewBag.TenderTypes = itemService.GetItemByCode("TENDER_TYPE");
+
             var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList, "Code", "Name");
 
             if (ModelState.IsValid)
             try
             {
-                // TODO: Add insert logic here
-                if(service.Save(model))
+                    ZOOAT m = new ZOOAT();
+                    AutoMapper.Mapper.Map(model, m, typeof(ZOOATViewModel), typeof(ZOOAT));
+                    if (service.Save(m))
                     return RedirectToAction("Create");
             }
             catch (Exception ex)
