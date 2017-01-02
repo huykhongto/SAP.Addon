@@ -2,34 +2,88 @@
 <tr>
 @using (@Html.BeginCollectionItem("Details"))
 {
-    <td>1</td>
-    <td>Jacob Olsen</td>
-    <td>Developer</td>
-    <td>2530$</td>
-    <td>1</td>
-    <td>Jacob Olsen</td>
-    <td>Developer</td>
-    <td>2530$</td>
-    <td>1</td>
-    <td>Jacob Olsen</td>
-    <td>Developer</td>
-    <td>2530$</td>
+    <td>
+        @Html.EditorFor(m => m.ItemCode, new { onSelect = "onItemSelect", onData = "onItemAdditionalData", onFilter = "onItemFiltering" , DataTextField = "IC"})
+    </td>
+    <td>
+        @Html.EditorFor(m => m.ItemName, new { onSelect = "onItemNameSelect", onData = "onItemNameAdditionalData", onFilter = "onItemNameFiltering", DataTextField = "IN" })
+    </td>
+    <td class="bg-lightyellow">
+        <label ></label>
+    </td>
+    <td class="bg-lightyellow">
+        <label ></label>
+    </td>
+    <td>
+        @Html.DropDownListFor(m => m.U_OtherName, (SelectList)ViewBag.Origins, "", new { @class = "form-control input-sm" })
+    </td>
+    <td class="bg-lightyellow">
+        <label></label>
+    </td>
+    <td class="bg-lightyellow">
+        <label></label>
+    </td>
+    <td class="bg-lightyellow">
+        <label></label>
+    </td>
+    <td class="bg-lightyellow">
+        <label></label>
+    </td>
+    <td>
+        @Html.DropDownListFor(m => m.U_TenderUnit, (SelectList)ViewBag.UoMs, "", new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m=>m.CumQty, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.PlanQty, new { @class = "form-control input-sm" })
+    </td>
 
-    <td>1</td>
-    <td>Jacob Olsen</td>
-    <td>Developer</td>
-    <td>2530$</td>
-    <td>1</td>
-    <td>Jacob Olsen</td>
-    <td>Developer</td>
-    <td>2530$</td>
-    <td>1</td>
-    <td>Jacob Olsen</td>
-    <td>Developer</td>
-    <td>2530$</td>
+    <td>
+        @Html.EditorFor(m => m.UnitPrice, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.U_VatPrcnt, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.U_PriceAftVat, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.CumAmntFC, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.Discount, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.LineStatus, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.U_Notify, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.FreeTxt, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.U_BPCode, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.U_BPName, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.U_TenderType, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.U_Start, new { @class = "form-control input-sm" })
+    </td>
 
-    <td>Jacob Olsen</td>
-    <td>Developer</td>
-    <td>2530$</td>
+    <td>
+        @Html.EditorFor(m => m.U_End, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.AgrNo, new { @class = "form-control input-sm" })
+    </td>
+    <td>
+        @Html.EditorFor(m => m.AgrLineNum, new { @class = "form-control input-sm" })
+    </td>
 }
 </tr>

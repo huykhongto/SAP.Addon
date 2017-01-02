@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +12,18 @@ namespace SAP.Addon.Domain.Entities.Business
         public int AgrNo { get; set; }
 
         public int AgrLineNum { get; set; }
-
+        [Required]
+        [UIHint("ItemFinder")]
         public string ItemCode { get; set; }
 
+        [Required]
+        [UIHint("ItemFinder")]
         public string ItemName { get; set; }
 
         public short? ItemGroup { get; set; }
 
         public decimal? PlanQty { get; set; }
-
+        [UIHint("Currency")]
         public decimal? UnitPrice { get; set; }
 
         public string Currency { get; set; }
@@ -67,6 +71,7 @@ namespace SAP.Addon.Domain.Entities.Business
         public decimal? U_DiscPrcnt { get; set; }
 
         public string U_TenderType { get; set; }
+        public string U_TenderUnit { get; set; }//add more
 
         public string U_BPCode { get; set; }
 

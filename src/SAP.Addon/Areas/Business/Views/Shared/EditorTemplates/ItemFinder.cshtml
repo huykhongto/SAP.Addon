@@ -1,0 +1,41 @@
+﻿
+
+
+@(Html.Kendo().AutoCompleteFor(m => m)
+          .DataTextField((string)ViewData["DataTextField"])
+          .Filter("contains")
+          .MinLength(2)
+          .HtmlAttributes(new { style = "width:100%", @class = "input-sm" })
+          .HeaderTemplate("<div class=\"dropdown-header k-widget k-header\">" +
+                        "<span>Item Code</span> | " +
+                        "<span><b>Item Name</b></span> | " +
+                        "<span>Item Group</span>" +
+                    "</div>")
+          .Template("<span class=\"k-state-default\">#: data.IC #</span> | " +
+                    "<span class=\"k-state-default\"><b>#: data.IN #</b></span> | " +
+                    "<span class=\"k-state-default\">#: data.IG #</span>")
+          .DataSource(source =>
+          {
+              source.Read(read =>
+              {
+                  read.Action("FindItems", "BlanketAgreementDetail")
+                      .Data((string)ViewData["onData"]);
+              })
+              .ServerFiltering(true);
+          }).Events(e =>
+          {
+              e.Select((string)ViewData["onSelect"]);
+              e.Filtering((string)ViewData["onFilter"]);
+          }
+))
+
+<style>
+    .dropdown-header {
+        width: 557px !important;
+    }
+
+    .k-animation-container ul {
+        width: 600px !important;
+        background-color: white;
+    }
+</style>

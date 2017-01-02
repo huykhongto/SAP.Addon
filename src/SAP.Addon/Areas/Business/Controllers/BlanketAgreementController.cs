@@ -17,13 +17,15 @@ namespace SAP.Addon.Areas.Business.Controllers
     public class BlanketAgreementController : BaseController
     {
         private BlanketAgreementService service;
+        private BlanketAgreementItemService detailService;
         private ICategoryService categoryService;
         private ICategoryItemService itemService;
-        public BlanketAgreementController(BlanketAgreementService service, ICategoryService ts, ICategoryItemService itemService)
+        public BlanketAgreementController(BlanketAgreementService service, BlanketAgreementItemService detailService, ICategoryService ts, ICategoryItemService itemService)
         {
             this.service = service;
             this.categoryService = ts;
             this.itemService = itemService;
+            this.detailService = detailService;
         }
 
         // GET: Business/BlanketAgreement
@@ -52,7 +54,8 @@ namespace SAP.Addon.Areas.Business.Controllers
             ViewBag.DocumentTypes = new SelectList(itemService.GetItemByCode(Category.DOCUMENT_TYPE), "Code", "Name");
             ViewBag.PaymentTerms = new SelectList(itemService.GetItemByCode(Category.PAYMENT_TERM), "Code", "Name");
             ViewBag.AgreementTypes = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_TYPE), "Code", "Name");
-
+            ViewBag.Origins = detailService.GetOriginalList();
+            ViewBag.UoMs = detailService.GetMeasureList();
             var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList,"Code","Name");
 
@@ -63,11 +66,13 @@ namespace SAP.Addon.Areas.Business.Controllers
         [HttpPost]
         public ActionResult Create(ZOOAT model)
         {
-            ViewBag.AgreementMethod = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_METHOD), "Code", "Name");
-            ViewBag.Status = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_STATUS), "Code", "Name");
-            ViewBag.DocumentTypes = new SelectList(itemService.GetItemByCode(Category.DOCUMENT_TYPE), "Code", "Name");
+            ViewBag.AgreementMethod = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_METHOD), "Code", "Name", model.Method);
+            ViewBag.Status = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_STATUS), "Code", "Name",model.Status);
+            ViewBag.DocumentTypes = new SelectList(itemService.GetItemByCode(Category.DOCUMENT_TYPE), "Code", "Name",model.Type);
             ViewBag.PaymentTerms = new SelectList(itemService.GetItemByCode(Category.PAYMENT_TERM), "Code", "Name");
             ViewBag.AgreementTypes = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_TYPE), "Code", "Name");
+            ViewBag.Origins = detailService.GetOriginalList();
+            ViewBag.UoMs = detailService.GetMeasureList();
 
             var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList, "Code", "Name");

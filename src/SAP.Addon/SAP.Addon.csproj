@@ -521,6 +521,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\Business\Views\BlanketAgreementDetail\DetailList.cshtml" />
     <Content Include="Areas\Business\Views\BlanketAgreementDetail\DetailItem.cshtml" />
+    <Content Include="Areas\Business\Views\Shared\EditorTemplates\ItemFinder.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

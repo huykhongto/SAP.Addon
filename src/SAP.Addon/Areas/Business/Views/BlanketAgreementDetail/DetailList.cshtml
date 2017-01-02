@@ -18,17 +18,129 @@
 
 </script>
 
+<script>
+        var currentControl = null;
+        function onItemAdditionalData()
+        {
+            //console.log($(currentControl.element[0]).val());
+            if (currentControl)
+            return {
+                ItemCode: $(currentControl.element[0]).val()
+            };
+            return "";
+        }
+
+        function onItemSelect(e) {
+            //console.log(e);
+            if (currentControl)
+            {
+                var dataItem = this.dataItem(e.item.index());
+                FillData(dataItem, currentControl);
+            }
+
+        }
+
+        function onItemFiltering(e) {
+            currentControl = e.sender;
+
+        }
+
+    //Find by item name
+
+        function onItemNameAdditionalData() {
+            if (currentControl)
+                return {
+                    ItemName: $(currentControl.element[0]).val()
+                };
+            return "";
+        }
+
+        function onItemNameSelect(e) {
+            //console.log(e);
+            if (currentControl) {
+                var dataItem = this.dataItem(e.item.index());
+                FillData(dataItem, currentControl);
+            }
+
+        }
+
+        function onItemNameFiltering(e) {
+            currentControl = e.sender;
+
+        }
+
+        function FillData(dataItem, control)
+        {
+            //$(control.element[0]).parent().parent().prev("td").find('input').first().val(dataItem.IC);
+            $(control.element[0]).closest('tr').find("input[name*='ItemCode']").first().val(dataItem.IC);
+            $(control.element[0]).closest('tr').find("input[name*='ItemName']").first().val(dataItem.IN);
+            $(control.element[0]).closest('tr').find("input[name*='U_VatPrcnt']").first().val(dataItem.Vat);
+
+            //console.log($(control.element[0]).closest('tr').find("label:nth-child(1)"));
+            var labelList = $(control.element[0]).closest('tr').find("label:nth-child(1)");
+
+            $(labelList).each(function ( index, item)
+            {
+                if (index == 0)
+                    $(this).html(dataItem.IG);
+                if (index == 1)
+                    $(this).html(dataItem.MF);
+                if (index == 4)
+                    $(this).html(dataItem.BasePrice);
+                if (index == 5)
+                    $(this).html(dataItem.UOM);
+            });
+
+            //Select original
+            var cmbOriginal = $(control.element[0]).closest('tr').find("select[name*='U_OtherName']").first();
+            SelectOriginal(cmbOriginal, dataItem);
+
+            var cmbTenderUnit = $(control.element[0]).closest('tr').find("select[name*='U_TenderUnit']").first();
+            SelectTenderUnit(cmbTenderUnit, dataItem);
+        }
+
+        function SelectOriginal(cmbOriginal, dataItem)
+        {
+            //console.log(cmbOriginal);
+            $.ajax({
+                url: '@Url.Action("GetOriginal", "BlanketAgreementDetail")'+'?ItemCode='+dataItem.IC + '&Manufacturer='+dataItem.MF,
+                success: function (data, status) {
+                    if (cmbOriginal != null)
+                        cmbOriginal.val(data);
+                },
+                error: function () { }
+            });
+            //cmbOriginal.val("");
+        }
+
+    function SelectTenderUnit(cmbTenderUnit, dataItem) {
+        //console.log(cmbTenderUnit);
+        $.ajax({
+            url: '@Url.Action("GetTenderUnit", "BlanketAgreementDetail")' + '?ItemCode=' + dataItem.IC + '&SaleUnit=' + dataItem.UOM,
+            success: function (data, status) {
+                if (cmbTenderUnit != null)
+                    cmbTenderUnit.val(data.UoM);
+
+            },
+            error: function () { }
+        });
+        //cmbOriginal.val("");
+    }
+
+</script>
+
+
 
 <a href="@Url.Action("AddItem","BlanketAgreementDetail")" class="btn btn-primary btn-sm" onclick="AddItem(this); return false;"><i class="fa fa-plus"></i> Add item</a>
-<table class="table table-bordered" style="width:3000px;">
+<table class="table table-bordered" style="width:3500px;">
     <thead>
         <tr>
-            <th class="xxx">Item No.</th>
-            <th class="xxx">Description</th>
+            <th  style="width:100px;">Item No.</th>
+            <th style="width:200px;">Description</th>
             <th class="xxx">Item Group</th>
             <th class="xxx">Manufacturer</th>
 
-            <th class="xxx">Original</th>
+            <th style="width:200px;">Original</th>
             <th class="xxx">SaleQty(SAP)</th>
             <th class="xxx">SalePrice(SAP)</th>
             <th class="xxx">Base Price</th>
@@ -38,8 +150,8 @@
             <th class="xxx">Items/Sale Unit</th>
             <th class="xxx">Planed Qty</th>
 
-            <th class="xxx">Unit Price</th>
-            <th class="xxx">Vat%</th>
+            <th style="width:100px;">Unit Price</th>
+            <th style="width:50px;">Vat%</th>
             <th class="xxx">Price after Vat</th>
             <th class="xxx">Amount</th>
 
@@ -54,14 +166,14 @@
             <th class="xxx">Valid On</th>
 
             <th class="xxx">Valid To</th>
-            <th class="xxx">Base Agreement</th>
-            <th class="xxx">Base Agreement Line</th>
+            <th style="width:150px;">Base Agreement</th>
+            <th style="width:150px;">Base Agreement Line</th>
         </tr>
     </thead>
     <tbody id="DetailList">
         @foreach (var item in Model)
         {
-            @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailItem.cshtml", item)
+            @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailItem.cshtml", item, new ViewDataDictionary { { "Origins" , new SelectList(ViewBag.Origins, "Code","Name",item.U_OtherName) }, { "UoMs", new SelectList(ViewBag.UoMs, "Code", "Name", item.U_TenderType) } })
         }
     </tbody>
 </table>

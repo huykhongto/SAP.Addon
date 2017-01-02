@@ -1,6 +1,6 @@
 ﻿@model SAP.Addon.Domain.Entities.Business.ZOOAT
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Blanket Agreement";
 }
 <style>
     .table tfoot tr td,.table tfoot tr th,.table thead tr th{border-bottom:1px solid #c4c4c4;font-size: 11px;}
@@ -334,7 +334,7 @@
                 </div>
                 <div class="tab-pane fade" id="profile1">
                     <div class="">
-                        @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailList.cshtml", Model.Details)
+                        @Html.Partial("~/Areas/Business/Views/BlanketAgreementDetail/DetailList.cshtml", Model.Details, new ViewDataDictionary { { "Origins", ViewBag.Origins} })
                     </div>
                 </div>
                 <div class="tab-pane fade" id="settings1">
