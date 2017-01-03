@@ -18,13 +18,13 @@
         @Html.DropDownListFor(m => m.U_OtherName, (SelectList)ViewBag.Origins, "", new { @class = "form-control input-sm" })
     </td>
     <td class="bg-lightyellow">
-        <label></label>
+        @Html.Kendo().NumericTextBoxFor(m => m.RetPortion).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
     </td>
     <td class="bg-lightyellow">
-        <label></label>
+        @Html.Kendo().NumericTextBoxFor(m => m.PlanAmtFC).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
     </td>
     <td class="bg-lightyellow">
-        <label></label>
+        @Html.Kendo().NumericTextBoxFor(m => m.BasePrice).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
     </td>
     <td class="bg-lightyellow">
         <label></label>
@@ -33,23 +33,23 @@
         @Html.DropDownListFor(m => m.U_TenderUnit, (SelectList)ViewBag.UoMs, "", new { @class = "form-control input-sm" })
     </td>
     <td>
-        @Html.EditorFor(m=>m.CumQty, new { @class = "form-control input-sm" })
+        @Html.Kendo().NumericTextBoxFor(m => m.CumQty).HtmlAttributes(new { style = "width:100%" }).Events(e => e.Change("CalculateAmount").Spin("CalculateAmount"))
     </td>
     <td>
-        @Html.EditorFor(m => m.PlanQty, new { @class = "form-control input-sm" })
+        @Html.Kendo().NumericTextBoxFor(m => m.PlanQty).HtmlAttributes(new { style="width:100%" }).Events(e => e.Change("CalculateAmount").Spin("CalculateAmount"))
     </td>
 
     <td>
-        @Html.EditorFor(m => m.UnitPrice, new { @class = "form-control input-sm" })
+        @Html.Kendo().NumericTextBoxFor(m => m.UnitPrice).HtmlAttributes(new { style = "width:100%" }).Events(e => e.Change("CalculateAmount").Spin("CalculateAmount"))
     </td>
     <td>
-        @Html.EditorFor(m => m.U_VatPrcnt, new { @class = "form-control input-sm" })
+        @Html.Kendo().NumericTextBoxFor(m => m.U_VatPrcnt).HtmlAttributes(new { style = "width:100%" }).Events(e => e.Change("CalculateAmount").Spin("CalculateAmount"))
     </td>
     <td>
         @Html.EditorFor(m => m.U_PriceAftVat, new { @class = "form-control input-sm" })
     </td>
     <td class="bg-lightyellow">
-        <label></label>
+        @Html.Kendo().NumericTextBoxFor(m => m.PlanAmtLC).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly="readonly" })
     </td>
     <td>
         @Html.EditorFor(m => m.Discount, new { @class = "form-control input-sm" })

@@ -38,9 +38,9 @@ namespace SAP.AddOn.Areas.Business.Controllers
             ViewBag.Origins = new SelectList(service.GetOriginalList(),"Code","Name");
             ViewBag.UoMs = new SelectList(service.GetMeasureList(), "Code", "Name");
 
-            ViewBag.LineStatus = new SelectList(itemService.GetItemByCode("LINE_STATUS"), "Code", "Name");
-            ViewBag.NotifyQty = new SelectList(itemService.GetItemByCode("NOTIFY_QTY"), "Code", "Name");
-            ViewBag.TenderTypes = new SelectList(itemService.GetItemByCode("TENDER_TYPE"), "Code", "Name");
+            ViewBag.LineStatus = new SelectList(itemService.GetItemByCode("LINE_STATUS"), "Code", "Name",model.LineStatus);
+            ViewBag.NotifyQty = new SelectList(itemService.GetItemByCode("NOTIFY_QTY"), "Code", "Name", model.U_Notify);
+            ViewBag.TenderTypes = new SelectList(itemService.GetItemByCode("TENDER_TYPE"), "Code", "Name", model.U_TenderType);
 
             return PartialView("DetailItem", model);
         }

@@ -81,9 +81,11 @@
                     <div class="col-sm-4">
                         <label class="control-label">PB Code</label>
                     </div>
-                    <div class="col-sm-8 ">
+                    <div class="col-sm-4 ">
                         @Html.EditorFor(m => m.BpCode, new { Data = "onCodeData", onSelected = "onSelected", onFiltering = "onFiltering", DataTextField = "CC" })
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <label class="control-label">PB Name</label>
                     </div>
@@ -183,26 +185,26 @@
                         <label class="control-label">Total Amount (LC)</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.TextBoxFor(m => m.U_Commission, new { @class = "form-control input-sm  bg-lightyellow", @readonly = "readonly" })
+                        @Html.Kendo().NumericTextBoxFor(m => m.U_Commission).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
                     </div>
                     <div class="col-sm-5">
                         <label class="control-label">Total Quantity</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.TextBoxFor(m => m.AmendedTo, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
+                        @Html.Kendo().NumericTextBoxFor(m => m.AmendedTo).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
                     </div>
 
                     <div class="col-sm-5">
                         <label class="control-label">TotalWinAmount(LC)</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.TextBoxFor(m => m.LogInstanc, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
+                        @Html.Kendo().NumericTextBoxFor(m => m.LogInstanc).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
                     </div>
                     <div class="col-sm-5">
                         <label class="control-label">Total Win Quantity</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.TextBoxFor(m => m.RemindVal, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
+                        @Html.Kendo().NumericTextBoxFor(m => m.RemindVal).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
                     </div>
                 </div>
             </div>
@@ -239,28 +241,28 @@
                         <label class="control-label">Start Date</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.Kendo().DatePickerFor(m => m.StartDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                        @Html.Kendo().DatePickerFor(m => m.StartDate).Format("dd/MM/yyyy").HtmlAttributes(new { @style = "width:100%" })
                     </div>
 
                     <div class="col-sm-5">
                         <label class="control-label">End Date</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.Kendo().DatePickerFor(m => m.EndDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                        @Html.Kendo().DatePickerFor(m => m.EndDate).Format("dd/MM/yyyy").HtmlAttributes(new { @style = "width:100%" })
                     </div>
 
                     <div class="col-sm-5">
                         <label class="control-label">Termination Date</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.Kendo().DatePickerFor(m => m.TermDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                        @Html.Kendo().DatePickerFor(m => m.TermDate).Format("dd/MM/yyyy").HtmlAttributes(new { @style = "width:100%" })
                     </div>
 
                     <div class="col-sm-5">
                         <label class="control-label">Signing Date</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.Kendo().DatePickerFor(m => m.SignDate).Format("dd/MM/yyyy").HtmlAttributes(new { @class = "form-control input-sm" })
+                        @Html.Kendo().DatePickerFor(m => m.SignDate).Format("dd/MM/yyyy").HtmlAttributes(new { @style = "width:100%" })
                     </div>
                 </div>
             </div>

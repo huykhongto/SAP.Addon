@@ -74,7 +74,10 @@
             //$(control.element[0]).parent().parent().prev("td").find('input').first().val(dataItem.IC);
             $(control.element[0]).closest('tr').find("input[name*='ItemCode']").first().val(dataItem.IC);
             $(control.element[0]).closest('tr').find("input[name*='ItemName']").first().val(dataItem.IN);
-            $(control.element[0]).closest('tr').find("input[name*='U_VatPrcnt']").first().data("kendoNumericTextBox").value(dataItem.Vat);
+            //$(control.element[0]).closest('tr').find("input[name*='U_VatPrcnt']").first().data("kendoNumericTextBox").value(dataItem.Vat);
+            //$(control.element[0]).closest('tr').find("input[name*='BasePrice']").first().data("kendoNumericTextBox").value(dataItem.BasePrice);
+            GetControl(control, 'U_VatPrcnt').value(dataItem.Vat);
+            GetControl(control, 'BasePrice').value(dataItem.BasePrice);
 
             //console.log($(control.element[0]).closest('tr').find("label:nth-child(1)"));
             var labelList = $(control.element[0]).closest('tr').find("label:nth-child(1)");
@@ -85,9 +88,9 @@
                     $(this).html(dataItem.IG);
                 if (index == 1)
                     $(this).html(dataItem.MF);
-                if (index == 4)
-                    $(this).html(dataItem.BasePrice);
-                if (index == 5)
+                //if (index == 2)
+                //    $(this).html(dataItem.BasePrice);
+                if (index == 2)
                     $(this).html(dataItem.UOM);
             });
 
@@ -96,7 +99,7 @@
             SelectOriginal(cmbOriginal, dataItem);
 
             var cmbTenderUnit = $(control.element[0]).closest('tr').find("select[name*='U_TenderUnit']").first();
-            var txtCumQty = $(control.element[0]).closest('tr').find("input[name*='CumQty']").first().data("kendoNumericTextBox");
+            var txtCumQty = GetControl(control, 'CumQty');// $(control.element[0]).closest('tr').find("input[name*='CumQty']").first().data("kendoNumericTextBox");
             SelectTenderUnit(cmbTenderUnit, txtCumQty, dataItem);
         }
 
@@ -153,6 +156,65 @@
 
     function onItemFiltering(e) {
         currentControl = e.sender;
+    }
+
+</script>
+
+<script>
+    //calculation
+    
+
+    function CalculateAmount(e) {
+        //console.log(e);
+        var CumQty = GetControl(e.sender, 'CumQty');
+        var PlanQty = GetControl(e.sender, 'PlanQty');
+        var UnitPrice = GetControl(e.sender, 'UnitPrice');
+        var U_VatPrcnt = GetControl(e.sender, 'U_VatPrcnt');
+        var U_PriceAftVat = GetControl(e.sender, 'U_PriceAftVat');
+        var PlanAmtLC = GetControl(e.sender, 'PlanAmtLC');
+        var RetPortion = GetControl(e.sender, 'RetPortion');
+        var PlanAmtFC = GetControl(e.sender, 'PlanAmtFC');
+
+        U_PriceAftVat.value(UnitPrice.value() * (1 + (U_VatPrcnt.value() / 100)));
+        //console.log(U_PriceAftVat.value());
+        PlanAmtLC.value(U_PriceAftVat.value() * PlanQty.value());
+        //console.log(PlanQty.value());
+        RetPortion.value(PlanQty.value() / CumQty.value());
+        PlanAmtFC.value(CumQty.value() * UnitPrice.value());
+
+        var U_Commission = $('#U_Commission').data("kendoNumericTextBox");//total amount (LC)
+        var AmendedTo = $('#AmendedTo').data("kendoNumericTextBox");//total qty
+        var LogInstanc = $('#LogInstanc').data("kendoNumericTextBox");//total win amount (LC)
+        var RemindVal = $('#RemindVal').data("kendoNumericTextBox");//total win qty
+
+        var totalQty = 0;
+        var totalAmount = 0;
+
+        var PlanQtyControls = GetControls(e.sender, 'PlanQty');
+        $(PlanQtyControls).each(function (index, item) {
+            totalQty = totalQty + $(item).data("kendoNumericTextBox").value();
+        });
+
+        var PlanAmtLCControls = GetControls(e.sender, 'PlanAmtLC');
+        $(PlanAmtLCControls).each(function (index, item) {
+            totalAmount = totalAmount + $(item).data("kendoNumericTextBox").value();
+        });
+
+        U_Commission.value(totalAmount);
+        AmendedTo.value(totalQty);
+        LogInstanc.value(0);
+        RemindVal.value(0);
+    }
+
+    function GetControl(sender, controlName)
+    {
+        var control = $(sender.element[0]).closest('tr').find("input[name*='" + controlName + "']").first().data("kendoNumericTextBox");
+        return control;
+    }
+
+    function GetControls(sender, controlName) {
+        var controls = $(sender.element[0]).closest('table').find("input[name*='" + controlName + "']");
+        return controls;
     }
 
 </script>
