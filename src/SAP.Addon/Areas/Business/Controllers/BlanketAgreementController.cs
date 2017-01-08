@@ -65,7 +65,7 @@ namespace SAP.Addon.Areas.Business.Controllers
             var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList,"Code","Name");
 
-            return View(new ZOOATViewModel() { Owner = "53", StartDate = DateTime.Now, EndDate = DateTime.Now, Details = new List<ZOAT1TMP>()});
+            return View(new ZOOATViewModel() { Owner = "53", StartDate = DateTime.Now, EndDate = DateTime.Now, Details = new List<ZOAT1TMPViewModel>()});
         }
 
         // POST: Business/BlanketAgreement/Create
@@ -93,13 +93,25 @@ namespace SAP.Addon.Areas.Business.Controllers
                     ZOOAT m = new ZOOAT();
                     AutoMapper.Mapper.Map(model, m, typeof(ZOOATViewModel), typeof(ZOOAT));
                     if (service.Save(m))
-                    return RedirectToAction("Create");
+                    {
+                        //save details
+                        int res = 0;
+                        foreach (var item in model.Details)
+                        {
+                            var detail = new ZOAT1TMP();
+                            AutoMapper.Mapper.Map(item, detail, typeof(ZOAT1TMPViewModel), typeof(ZOAT1TMP));
+                            detailService.Save(detail);
+                            res = res + detail.Err;
+                        }
+                        if(res== 0)
+                            return RedirectToAction("Index");
+                    }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("serice", ex.Message);
-                return View(model);
-            }
+                    ModelState.AddModelError("Service",ex.Message);
+                    return View(model);
+                }
             return View(model);
         }
 

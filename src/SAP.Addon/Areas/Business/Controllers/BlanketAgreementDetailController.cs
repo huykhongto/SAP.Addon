@@ -27,7 +27,7 @@ namespace SAP.AddOn.Areas.Business.Controllers
 
         public ActionResult AddItem()
         {
-            var model = new ZOAT1TMP() {
+            var model = new ZOAT1TMPViewModel() {
                 U_Start = DateTime.Now,
                 U_End = DateTime.Now,
                 LineStatus = "O",

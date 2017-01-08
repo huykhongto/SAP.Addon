@@ -96,6 +96,14 @@ namespace SAP.Addon.Domain.Models.Business
 
         public int Err { get; set; }
 
-        public IEnumerable<ZOAT1TMP> Details { get; set; }
+        //add more
+
+        public IEnumerable<ZOAT1TMPViewModel> Details { get; set; }
+
+        public string PhoneNo { get; set; }
+        public string Email { get; set; }
+        public string PaymentTerms { get; set; }
+        public string Balance { get; set; }
+        public string CreditLine { get; set; }
     }
 }

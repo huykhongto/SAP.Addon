@@ -69,7 +69,8 @@ namespace SAP.Addon.Domain.Services.Business
 
         public bool Save(ZOOAT model)
         {
-            return SqlHelper.ExecuteSP("usp_MD_SaveBlanketAgreement", model) > 0;
+            SqlHelper.ExecuteSP("usp_MD_SaveBlanketAgreement", model);
+            return model.Err == 0;
         }
 
     }

@@ -138,13 +138,13 @@
                         <label class="control-label">Phone No</label>
                     </div>
                     <div class="col-sm-8 ">
-                        @Html.TextBox("PhoneNo", "", new { @class = "form-control input-sm", @readonly = "readonly" })
+                        @Html.TextBoxFor(m=>m.PhoneNo, new { @class = "form-control input-sm", @readonly = "readonly" })
                     </div>
                     <div class="col-sm-4">
                         <label class="control-label">Email</label>
                     </div>
                     <div class="col-sm-8 ">
-                        @Html.TextBox("Email", "", new { @class = "form-control input-sm", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form - control input - sm", @readonly = "readonly" })
                     </div>
 
                     <div class="col-sm-4">
@@ -162,7 +162,7 @@
                         <label class="control-label">BP Payment Terms</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.TextBox("PaymentTerms", "", new { @class = "form-control input-sm", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.PaymentTerms, new { @class = "form - control input - sm", @readonly = "readonly" })
                     </div>
 
                     <div class="col-sm-5">
@@ -170,14 +170,14 @@
                     </div>
                     <div class="col-sm-7 ">
 
-                        @Html.TextBox("Balance", "", new { @class = "form-control input-sm ", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.Balance, new { @class = "form - control input - sm ", @readonly = "readonly" })
                     </div>
 
                     <div class="col-sm-5">
                         <label class="control-label">PB Credit Limit (LC)</label>
                     </div>
                     <div class="col-sm-7 ">
-                        @Html.TextBox("CreditLine", "", new { @class = "form-control input-sm", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.CreditLine, new { @class = "form - control input - sm", @readonly = "readonly" })
 
                     </div>
 

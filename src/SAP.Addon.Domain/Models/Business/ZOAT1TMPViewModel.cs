@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SAP.Addon.Domain.Entities.Business
+namespace SAP.Addon.Domain.Models.Business
 {
-    public class ZOAT1TMP
+    public class ZOAT1TMPViewModel
     {
         public int AgrNo { get; set; }
 
@@ -25,7 +25,7 @@ namespace SAP.Addon.Domain.Entities.Business
         public decimal? PlanQty { get; set; }
 
         public decimal? UnitPrice { get; set; }
-        //public decimal? BasePrice { get; set; }
+        public decimal? BasePrice { get; set; }
 
         public string Currency { get; set; }
 
@@ -72,7 +72,7 @@ namespace SAP.Addon.Domain.Entities.Business
         public decimal? U_DiscPrcnt { get; set; }
 
         public string U_TenderType { get; set; }
-        
+
         [UIHint("PBFinder")]
         public string U_BPCode { get; set; }
         [UIHint("PBFinder")]
@@ -80,8 +80,14 @@ namespace SAP.Addon.Domain.Entities.Business
 
         public string U_Notify { get; set; }
 
-        public int Err { get; set; }
+        public int? U_BaseAgr { get; set; }
 
-        
+        public int? U_BaseAgrLine { get; set; }
+        public int Err { get; set; }
+        //add more
+        public string ItemGroupName { get; set; }
+        public string Manufacture { get; set; }
+        public string SaleUnit { get; set; }
+        public string U_TenderUnit { get; set; }
     }
 }

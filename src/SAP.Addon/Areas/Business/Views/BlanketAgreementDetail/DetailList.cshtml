@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SAP.Addon.Domain.Entities.Business.ZOAT1TMP>
+﻿@model IEnumerable<SAP.Addon.Domain.Models.Business.ZOAT1TMPViewModel>
 
 <script>
     function AddItem(sender) {
@@ -74,24 +74,35 @@
             //$(control.element[0]).parent().parent().prev("td").find('input').first().val(dataItem.IC);
             $(control.element[0]).closest('tr').find("input[name*='ItemCode']").first().val(dataItem.IC);
             $(control.element[0]).closest('tr').find("input[name*='ItemName']").first().val(dataItem.IN);
+
+            $(control.element[0]).closest('tr').find("input[name*='ItemGroup']").first().val(dataItem.IC);
+            $(control.element[0]).closest('tr').find("input[name*='Manufacture']").first().val(dataItem.MF);
+            $(control.element[0]).closest('tr').find("input[name*='SaleUnit']").first().val(dataItem.UOM);
+
             //$(control.element[0]).closest('tr').find("input[name*='U_VatPrcnt']").first().data("kendoNumericTextBox").value(dataItem.Vat);
             //$(control.element[0]).closest('tr').find("input[name*='BasePrice']").first().data("kendoNumericTextBox").value(dataItem.BasePrice);
             GetControl(control, 'U_VatPrcnt').value(dataItem.Vat);
             GetControl(control, 'BasePrice').value(dataItem.BasePrice);
 
             //console.log($(control.element[0]).closest('tr').find("label:nth-child(1)"));
-            var labelList = $(control.element[0]).closest('tr').find("label:nth-child(1)");
+            var labelList = $(control.element[0]).closest('tr').find("label:nth-child(2)");
 
             $(labelList).each(function ( index, item)
             {
-                if (index == 0)
+                if (index == 0) {
                     $(this).html(dataItem.IG);
-                if (index == 1)
+                }
+                    
+                if (index == 1) {
                     $(this).html(dataItem.MF);
+                }
+                    
                 //if (index == 2)
                 //    $(this).html(dataItem.BasePrice);
-                if (index == 2)
+                if (index == 2) {
                     $(this).html(dataItem.UOM);
+                }
+                   
             });
 
             //Select original

@@ -13,6 +13,8 @@ namespace SAP.AddOn.App_Start
         {
             AutoMapper.Mapper.CreateMap<ZOOAT, ZOOATViewModel>();
             AutoMapper.Mapper.CreateMap<ZOOATViewModel, ZOOAT>();
+            AutoMapper.Mapper.CreateMap<ZOAT1TMP, ZOAT1TMPViewModel>();
+            AutoMapper.Mapper.CreateMap<ZOAT1TMPViewModel, ZOAT1TMP>();
         }
     }
 }

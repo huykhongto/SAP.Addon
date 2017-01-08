@@ -29,8 +29,9 @@ namespace SAP.Addon.Controllers
 
         // GET: Account
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl = "")
         {
+            ViewBag.returnUrl = returnUrl;
            ViewBag.FunctionList = new SelectList(itemService.GetItemByCode(Category.FUNCTIONS), "Code","Name");
             return View();
         }

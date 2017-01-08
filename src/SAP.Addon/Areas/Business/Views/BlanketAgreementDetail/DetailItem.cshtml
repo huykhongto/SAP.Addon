@@ -1,4 +1,4 @@
-﻿@model SAP.Addon.Domain.Entities.Business.ZOAT1TMP
+﻿@model SAP.Addon.Domain.Models.Business.ZOAT1TMPViewModel
 <tr>
 @using (@Html.BeginCollectionItem("Details"))
 {
@@ -9,10 +9,12 @@
         @Html.EditorFor(m => m.ItemName, new { onSelect = "onItemNameSelect", onData = "onItemNameAdditionalData", onFilter = "onItemNameFiltering", DataTextField = "IN" })
     </td>
     <td class="bg-lightyellow">
-        <label ></label>
+        @Html.HiddenFor(m=>m.ItemGroupName)
+        <label> @Html.DisplayFor(m => m.ItemGroupName)</label>
     </td>
     <td class="bg-lightyellow">
-        <label ></label>
+        @Html.HiddenFor(m => m.Manufacture)
+        <label>@Html.DisplayFor(m => m.Manufacture)</label>
     </td>
     <td>
         @Html.DropDownListFor(m => m.U_OtherName, (SelectList)ViewBag.Origins, "", new { @class = "form-control input-sm" })
@@ -27,7 +29,8 @@
         @Html.Kendo().NumericTextBoxFor(m => m.BasePrice).HtmlAttributes(new { @class = "bg-lightyellow", style = "width:100%", @readonly = "readonly" })
     </td>
     <td class="bg-lightyellow">
-        <label></label>
+        @Html.HiddenFor(m => m.SaleUnit)
+        <label>@Html.DisplayFor(m => m.SaleUnit)</label>
     </td>
     <td>
         @Html.DropDownListFor(m => m.U_TenderUnit, (SelectList)ViewBag.UoMs, "", new { @class = "form-control input-sm" })

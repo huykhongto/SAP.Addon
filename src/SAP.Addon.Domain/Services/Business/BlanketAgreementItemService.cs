@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using SAP.Addon.Domain.Entities.Business;
 using SAP.Addon.Domain.Models.Business;
 
 namespace SAP.Addon.Domain.Services.Business
@@ -59,6 +60,10 @@ namespace SAP.Addon.Domain.Services.Business
             return SqlHelper.QuerySP<OriginalListViewModel>("usp_MD_GetOriginalList");
         }
 
-        
+        public int Save(ZOAT1TMP detail)
+        {
+            SqlHelper.ExecuteSP("usp_MD_SaveBlanketAgreementDetails", detail);
+            return detail.Err;
+        }
     }
 }
