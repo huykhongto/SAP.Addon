@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SAP.Addon.Domain.Models.Business.AttachmentViewModel>
+
+<table class="table table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th class="width100">Attach Date</th>
+            <th class="width200">File Name</th>
+            <th class="width100">File Type</th>
+            <th class="">Path</th>
+        </tr>
+    </thead>
+    <tbody id="AttachmentList">
+        @foreach (var item in Model)
+        {
+            <tr>
+            @using (@Html.BeginCollectionItem("Attachments"))
+            {
+                @Html.HiddenFor(m=>item.Date)
+                @Html.HiddenFor(m => item.FileName)
+                @Html.HiddenFor(m => item.FileExt)
+                @Html.HiddenFor(m => item.srcPath)
+
+                    <td>@item.Date</td>
+                    <td>@item.FileName</td>
+                    <td>@item.FileExt</td>
+                    <td>@item.srcPath</td>
+            }
+            </tr>
+        }
+    </tbody>
+</table>

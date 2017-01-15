@@ -526,6 +526,7 @@
     <Content Include="Areas\Business\Views\BlanketAgreementDetail\DetailList.cshtml" />
     <Content Include="Areas\Business\Views\BlanketAgreementDetail\DetailItem.cshtml" />
     <Content Include="Areas\Business\Views\Shared\EditorTemplates\ItemFinder.cshtml" />
+    <Content Include="Areas\Business\Views\BlanketAgreement\Attachments.cshtml" />
     <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

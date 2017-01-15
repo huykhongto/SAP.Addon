@@ -99,6 +99,7 @@ namespace SAP.Addon.Domain.Models.Business
         //add more
 
         public IEnumerable<ZOAT1TMPViewModel> Details { get; set; }
+        public IEnumerable<AttachmentViewModel> Attachments { get; set; }
 
         public string PhoneNo { get; set; }
         public string Email { get; set; }

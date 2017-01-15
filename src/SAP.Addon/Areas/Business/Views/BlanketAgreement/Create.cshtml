@@ -64,17 +64,31 @@
         function ReloadContactPersons()
         {
             var dropDownList = $('#ContactPerson').data('kendoComboBox');
+            if (dropDownList) {
+            
             dropDownList.text('');
             dropDownList.dataSource.read();
             dropDownList.refresh();
+            }
         }
+
+        $(document).ready(function () {
+            if ($('#AbsID').val() != "")
+            {
+                LoadBusinessPartner($('#BpCode').val());
+                ReloadContactPersons();
+
+
+            }
+        })
+
 </script>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Save","BlanketAgreement"))
 {
     <div class="form-horizontal">
         @Html.ValidationSummary()
-
+        @Html.HiddenFor(m=>m.AbsID)
         <div class="form-group">
             <div class="col-md-4">
                 <div class="row">
@@ -215,7 +229,7 @@
                     </div>
                     <div class="col-sm-7 ">
                         <div class="checkbox-custom">
-                            <input type="checkbox" name="LogInstanc" id="LogInstanc">
+                            <input type="checkbox" name="LogInstanc" id="LogInstanc" @(Model.LogInstanc != 0 ? "checked" : "") >
                             <label for="checkbox2">Active</label>
                         </div>
                     </div>
@@ -224,7 +238,7 @@
                         <label class="control-label">Agreement No.</label>
                     </div>
                     <div class="col-sm-3 ">
-                        @Html.TextBoxFor(m => m.U_Commission, new { @class = "form-control input-sm", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.AbsID, new { @class = "form-control input-sm", @readonly = "readonly" })
                     </div>
                     <div class="col-sm-4 ">
                         @Html.TextBoxFor(m => m.U_AgreementNo, new { @class = "form-control input-sm bg-lightyellow", @readonly = "readonly" })
@@ -330,7 +344,7 @@
                             <label class="control-label">Remarks</label>
                         </div>
                         <div class="col-sm-12 ">
-                            @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control input-sm bg-lightyellow", rows = "10" })
+                            @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control input-sm bg-lightyellow", rows = "3" })
                         </div>
                     </div>
                 </div>
@@ -346,11 +360,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="attachments">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, suscipit, autem sit natus deserunt officia error odit ea minima soluta ratione maxime molestias fugit explicabo aspernatur praesentium quisquam voluptatum fuga delectus quidem quas aliquam
-                        minus at corporis libero? Modi, aperiam, pariatur, sequi illum dolore consequuntur aspernatur eos hic officia doloribus magnam impedit autem maiores alias consectetur tempore explicabo. Ducimus, minima, suscipit
-                        unde harum numquam ipsa laboriosam cupiditate nemo repellendus at? Dolorum dicta nemo quaerat iusto.
-                    </p>
+                    @Html.Partial("~/Areas/Business/Views/BlanketAgreement/Attachments.cshtml", Model.Attachments)
                 </div>
             </div>
         </div>

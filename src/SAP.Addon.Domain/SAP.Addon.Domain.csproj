@@ -79,6 +79,7 @@
     <Compile Include="Models\Administration\ZFNC.cs" />
     <Compile Include="Models\Administration\ZUSR.cs" />
     <Compile Include="Entities\BaseModel.cs" />
+    <Compile Include="Models\Business\AttachmentViewModel.cs" />
     <Compile Include="Models\Business\BlanketAgreementItemSearchViewModel.cs" />
     <Compile Include="Models\Business\BlanketAgreementListViewModel.cs" />
     <Compile Include="Models\Business\BlanketAgreementSearchParams.cs" />

@@ -65,12 +65,18 @@ namespace SAP.Addon.Areas.Business.Controllers
             var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList,"Code","Name");
 
-            return View(new ZOOATViewModel() { Owner = "53", StartDate = DateTime.Now, EndDate = DateTime.Now, Details = new List<ZOAT1TMPViewModel>()});
+            return View(new ZOOATViewModel() {
+                Owner = "53",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Details = new List<ZOAT1TMPViewModel>(),
+                Attachments = new List<AttachmentViewModel>()
+            });
         }
 
         // POST: Business/BlanketAgreement/Create
         [HttpPost]
-        public ActionResult Create(ZOOATViewModel model)
+        public ActionResult Save(ZOOATViewModel model)
         {
             ViewBag.AgreementMethod = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_METHOD), "Code", "Name", model.Method);
             ViewBag.Status = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_STATUS), "Code", "Name",model.Status);
@@ -86,6 +92,9 @@ namespace SAP.Addon.Areas.Business.Controllers
 
             var ownerList = service.GetOwnerList();
             ViewBag.Owners = new SelectList(ownerList, "Code", "Name");
+
+            if (model.Details == null)
+                model.Details = new List<ZOAT1TMPViewModel>();
 
             if (ModelState.IsValid)
             try
@@ -110,15 +119,33 @@ namespace SAP.Addon.Areas.Business.Controllers
             catch (Exception ex)
             {
                     ModelState.AddModelError("Service",ex.Message);
-                    return View(model);
+                    return View("Create",model);
                 }
-            return View(model);
+            return View("Create",model);
         }
 
         // GET: Business/BlanketAgreement/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = service.Find(id);
+            if (model == null)
+                return HttpNotFound();
+
+            ViewBag.AgreementMethod = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_METHOD), "Code", "Name", model.Method);
+            ViewBag.Status = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_STATUS), "Code", "Name", model.Status);
+            ViewBag.DocumentTypes = new SelectList(itemService.GetItemByCode(Category.DOCUMENT_TYPE), "Code", "Name", model.Type);
+            ViewBag.PaymentTerms = new SelectList(itemService.GetItemByCode(Category.PAYMENT_TERM), "Code", "Name");
+            ViewBag.AgreementTypes = new SelectList(itemService.GetItemByCode(Category.AGREEMENT_TYPE), "Code", "Name");
+            ViewBag.Origins = detailService.GetOriginalList();
+            ViewBag.UoMs = detailService.GetMeasureList();
+
+            ViewBag.LineStatus = itemService.GetItemByCode("LINE_STATUS");
+            ViewBag.NotifyQty = itemService.GetItemByCode("NOTIFY_QTY");
+            ViewBag.TenderTypes = itemService.GetItemByCode("TENDER_TYPE");
+
+            var ownerList = service.GetOwnerList();
+            ViewBag.Owners = new SelectList(ownerList, "Code", "Name");
+            return View("Create", model);
         }
 
         // POST: Business/BlanketAgreement/Edit/5

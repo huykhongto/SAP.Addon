@@ -65,5 +65,10 @@ namespace SAP.Addon.Domain.Services.Business
             SqlHelper.ExecuteSP("usp_MD_SaveBlanketAgreementDetails", detail);
             return detail.Err;
         }
+
+        //public IEnumerable<ZOAT1TMPViewModel> Read(int absID)
+        //{
+        //    return SqlHelper.QuerySP<ZOAT1TMPViewModel>("usp_MD_GetBlanketAgreementDetails", new { });
+        //}
     }
 }

@@ -73,5 +73,25 @@ namespace SAP.Addon.Domain.Services.Business
             return model.Err == 0;
         }
 
+        public ZOOATViewModel Find(int id)
+        {
+            var models = SqlHelper.QueryMultipleSP<ZOOATViewModel, ZOAT1TMPViewModel,AttachmentViewModel>("usp_MD_GetBlanketAgreement", new { ABSID = id });
+
+            var BA = models.Item1.FirstOrDefault();
+            if (BA != null)
+            {
+                BA.Details = models.Item2;
+                BA.Attachments = models.Item3;
+            }
+                
+            if(BA.Details == null)
+                BA.Details = new List<ZOAT1TMPViewModel>();
+            if (BA.Attachments == null)
+                BA.Attachments = new List<AttachmentViewModel>();
+
+
+
+            return BA;
+        }
     }
 }
